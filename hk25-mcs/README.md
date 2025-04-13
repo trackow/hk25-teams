@@ -1,4 +1,4 @@
-# MCS tracking (hk25-mcs)
+# MCS tracking (hk25-MCS)
 
 ## Motivation
 
