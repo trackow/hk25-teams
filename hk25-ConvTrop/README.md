@@ -1,4 +1,4 @@
-# Project Title: Convectively-Coupled Systems in the Tropics as Simulated in Global Storm Resolving Models
+# Project Title: Convectively-Coupled Systems in the Tropics as Simulated in Global Storm Resolving Models (hk25-ConvTrop)
 
 ### Project Details
 
