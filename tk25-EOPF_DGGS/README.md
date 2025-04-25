@@ -37,7 +37,7 @@ Our primary objective is to define and prepare the foundational structure of a D
 ### 2. Multiresolution Data Access
 
 - Use **Sentinel-2 L2A** data as a case study for pyramidal representation across resolutions.
-- Leverage **cloud-hosted datasets** via the **[EOPF Zarr Sample Service](https://github.com/EOPF-Sample-Service/eopf-sample-notebooks/tree/main)**.
+- Leverage **cloud-hosted datasets** via the **[EOPF Zarr Sample Service](https://github.com/EOPF-Sample-Service/eopf-sample-notebooks/tree/main)** and [it's STAC API](https://stac.browser.user.eopf.eodc.eu)
 - Align temporal selection with *Takasuka et al. (2024)*.
 
 ### 3. Interoperability
