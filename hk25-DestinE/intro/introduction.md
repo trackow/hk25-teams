@@ -7,28 +7,21 @@
 - [Earthkit docs](https://earthkit.readthedocs.io/en/latest/)
 
 ## Accessing DestinE data
-### Starting with DESP
+### Option 1: Interactive data analysis on the Destination Earth Service Platform (DESP)
 
-The following steps assumes one has been granted upgraded access to [DESP](https://platform.destine.eu).
+The following steps can be followed by users who have been granted upgraded access to [DESP](https://platform.destine.eu).
 
-To explore the ClimateDT data we can use the Insula - Code service. To use it one first must go to [Insula Code](https://platform.destine.eu/services/service/insula-code/) and then sign in (upper left corner). Once one is logged in click "Go to service". Then a server will be started that will launch a jupyter lab. There are multiple folders to begin with. Select `polytope-lab` -> `climate-dt`. There are multiple example jupyter notebooks in this folder which can be used as basis for any analysis
+To explore the ClimateDT data via the DESP one can use the Insula - Code service to run Jupyter Notebooks interactively. First go to [Insula Code](https://platform.destine.eu/services/service/insula-code/), sign in (upper left corner), then click "Go to service". Then a server will be started that will launch a Jupyter lab. There are multiple folders to begin with. Select polytope-lab -> climate-dt. There are multiple example jupyter notebooks in this folder which can be used as basis for any analysis.
 
-### Starting outside of DESP
-A python environment to start working outside of DESP can be created using the `requirements.txt` provided in this folder.
-There are different ways how one can enable access to the data-bridge where the DestineE data is stored. To read the data outside of DESP one still requires a token. This token can be generated the following way:
+### Option 2: local data analysis
 
-1. Copy the `desp-authentication.py` file from the jupyterlab Insula Code service in `polytope-lab` to your laptop.
-2. Same as in the example jupyter notebooks run the following lines of code in your python notebook/script:
-```python
-%%capture cap
-%run path/to/desp-authentication.py
-output_1 = cap.stdout.split('}\n')
-access_token = output_1[-1][0:-1]
-```
-3. Create a request (see below) and run `earthkit.data.from_source(<args>)` (see Insula Code examples) to get the data.
+To explore the Climate DT data locally (e.g. on a HPC/laptop), a python environment can be created using the requirements.txt provided in this folder. You can run any of the [example notebooks](https://github.com/destination-earth-digital-twins/polytope-examples/tree/main/climate-dt), which will require you to authenticate with your personal DESP username and password.
 
-### Requesting data
-The data from Climate DT is hosted remotely. Therefore, the data must be requested so that it can be used. The data requests follow the syntax of the [MARS](https://confluence.ecmwf.int/display/UDOC/MARS+command+and+request+syntax) archive. This could look for instance like the following example from climate-dt-earthkit-example-domain.ipynb with pointers to what one may want to change:
+
+### Notes on how to select data from available simulations:
+
+An overview of the available Climate DT simulations is provided [here](https://destine.ecmwf.int/climate-change-adaptation-digital-twin-climate-dt/#simulations).
+The data selection is done in each notebook in the polytope request, for example in [climate-dt-earthkit-example-domain.ipynb](https://github.com/destination-earth-digital-twins/polytope-examples/blob/main/climate-dt/climate-dt-earthkit-example-domain.ipynb) with the following code block:
 
 ```
 request = {
@@ -49,4 +42,5 @@ request = {
     'type': 'fc'
 }
 ```
-The data can then be requested using earthkit and can be converted to an xarray.Dataset if wanted. Other request examples can be created in [MARS requests catalogue](https://climate-catalogue.lumi.apps.dte.destination-earth.eu/?root=root).
+
+This polytope request can be modified to request data from any of the available simulations. The [STAC catalogue](https://climate-catalogue.lumi.apps.dte.destination-earth.eu/?root=root) offers an interactive interface to create your custom data request.
