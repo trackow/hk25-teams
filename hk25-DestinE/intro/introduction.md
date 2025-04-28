@@ -1,10 +1,12 @@
 # Destination Earth with the Climate DT Consortium
 
-### Helpful links
-- [Insula Code](https://platform.destine.eu/services/service/insula-code/)
-- [MARS requests catalogue](https://climate-catalogue.lumi.apps.dte.destination-earth.eu/?root=root)
-- [Climate DT overview](https://destine.ecmwf.int/climate-change-adaptation-digital-twin-climate-dt/)
-- [Earthkit docs](https://earthkit.readthedocs.io/en/latest/)
+### Frequently asked questions and direct links to the answer
+- [Where can I run my interactive analysis? -> Insula Code](https://platform.destine.eu/services/service/insula-code/)
+- [Which simulations are available? -> Climate DT simulation overview](https://destine.ecmwf.int/climate-change-adaptation-digital-twin-climate-dt/)
+- [Which variables were saved? -> Data catalogue for ClimateDT](https://confluence.ecmwf.int/display/DDCZ/Climate+DT+Phase+1+data+catalogue#ClimateDTPhase1datacatalogue-Outputparameters)
+- [Are there example notebooks for my interactive analysis? -> Polytope examples](https://github.com/destination-earth-digital-twins/polytope-examples/tree/main/climate-dt)
+- [How do I adjust my data request? -> STAC catalogue](https://climate-catalogue.lumi.apps.dte.destination-earth.eu/?root=root)
+- [Is there documentation on Earthkit? -> Earthkit docs](https://earthkit.readthedocs.io/en/latest/)
 
 ## Accessing DestinE data
 ### Option 1: Interactive data analysis on the Destination Earth Service Platform (DESP)
@@ -43,4 +45,4 @@ request = {
 }
 ```
 
-This polytope request can be modified to request data from any of the available simulations. The [STAC catalogue](https://climate-catalogue.lumi.apps.dte.destination-earth.eu/?root=root) offers an interactive interface to create your custom data request.
+This polytope request can be modified to request data from any of the available simulations. The prototype [STAC catalogue](https://climate-catalogue.lumi.apps.dte.destination-earth.eu/?root=root) offers an interactive interface to create your custom data request.
