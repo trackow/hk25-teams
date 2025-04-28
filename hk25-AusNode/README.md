@@ -1,6 +1,6 @@
 # Australia node: research topics (hk25-AusNode)
 
-This cross-cutting activity includes ten interconnected research topics that all leverage kilometer-scale (km-scale) global simulations to address a wide range of atmospheric and climate science questions. From local phenomena like urban circulation and coastal winds to large-scale features such as tropical convergence zones and convectively-coupled systems, each topic explores how high-resolution models can advance our understanding of weather and climate across scales. Our goal is to analyze global simulations through a local lens, using existing tools, methodologies, and datasets.
+The Australian node has ten research topics that all leverage kilometer-scale (km-scale) global simulations to address a wide range of atmospheric and climate science questions. From local phenomena like urban circulation and coastal winds to large-scale features such as tropical convergence zones and convectively-coupled systems, each topic explores how high-resolution models can advance our understanding of weather and climate across scales. Our goal is to analyze global simulations through a local lens, using existing tools, methodologies, and datasets.
 
 **Note:** We actively invite collaboration with science teams working in related topics.
 
