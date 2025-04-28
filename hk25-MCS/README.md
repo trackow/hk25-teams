@@ -24,7 +24,7 @@ Organizers:
 | [Ben Maybee](mailto:B.W.Maybee@leeds.ac.uk) | [simpleTrack](https://github.com/thmstein/simple-track) | UK |
 | [Andreas Prein](mailto:andreas.prein@usys.ethz.ch)        | [MOAAP](https://github.com/AndreasPrein/MOAAP)        | ?        |
 | [Vanessa Robledo](mailto:vrobledodelgado@uiowa.edu)        | [ATRACKCS](https://doi.org/10.5281/zenodo.7025989)        | ?        |
-| [John Mejia](mailto:John.Mejia@dri.edu)        | [ATRACKCS](https://doi.org/10.5281/zenodo.7025989)        | ?        |
+| [John Mejia](mailto:John.Mejia@dri.edu)        | [ATRACKCS](https://doi.org/10.5281/zenodo.7025989)        | US-West        |
 | [Fengfei Song](mailto:songfengfei@ouc.edu.cn)        | [PyFLEXTRKR](https://github.com/FlexTRKR/PyFLEXTRKR)        | China        |
 | [Jinyan Song](mailto:songjinyan@stu.ouc.edu.cn)        | [PyFLEXTRKR](https://github.com/FlexTRKR/PyFLEXTRKR)        | China        |
 
