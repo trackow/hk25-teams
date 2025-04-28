@@ -38,8 +38,8 @@ What is the main output you expect? A comparison of something in the simulations
 The very first step is to replicate the key results from Louf et al. (2019) by comparing cloud number and size with environmental conditions, using Darwin radar observations, ERA5, and high-resolution model outputs. Convective cells will be identified using a simple precipitation threshold, consistent across observations and models, to avoid discrepancies in cell detection methods. No cell tracking is required — convective cells can be extracted using standard Python tools such as scikit-learn. Environmental variables to be analyzed include CAPE, CIN (with calculation scripts provided), as well as relative humidity and vertical velocity at 500 hPa, which are available directly from the model outputs. This comparison will allow us to assess whether the simulated precipitation and environmental conditions align with those observed.
 
 The two main figures from Louf et al. (2019):  
-![](largescalep1.png)  
-![](largescalep2.png)
+![](img/largescalep1.png)  
+![](img/largescalep2.png)
 
 #### Secondary outputs:
 

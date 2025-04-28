@@ -38,7 +38,7 @@ What is the global distribution of coastal and offshore diurnal wind variability
 ·   	Code and notebooks that apply [this code repository](https://github.com/andrewbrown31/sea_breeze/tree/main) to global model data for sea breeze identification.  
 ·   	Plots of the number of sea breeze days over the one-year period.
 
-![](coastal.png)
+![](img/coastal.png)
 Figure 1, from Gille et al. (2005): “(a) Strength of diurnal wind cycle, with major axis plotted in color in locations where it is statistically significant, and wind ellipses plotted every 6 degrees in locations that are either within 10 degrees of land or equatorward of 30 degrees latitude. Reference line indicates the major axis for an ellipse with semi-major axis a \=2m/s. (b) Direction of rotation of wind. Red indicates clockwise and blue counter-clockwise rotation. (c) Time of day when wind is aligned with major axis. (Winds are aligned with the major axis twice a day.)”
 
 ### Methodology

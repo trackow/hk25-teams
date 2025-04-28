@@ -20,7 +20,7 @@ Ideal conditions for this urban heat island circulation are light synoptic flows
 
 Do \~5km global simulations capture these urban-induced flows? If so, which cities are most affected, in what conditions and at what times of day?
 
-![](citycirc.png) 
+![](img/citycirc.png) 
 Source: Oke et al., 2017, page 115\.
 
 #### Primary research question:

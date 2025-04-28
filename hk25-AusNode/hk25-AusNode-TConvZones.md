@@ -25,12 +25,12 @@ One such bias is the double Inter-tropical Convergence Zone (ITCZ) bias in coupl
 While high resolution models show an improvement in simulating tropical rainfall, they do not eliminate the double ITCZ bias (Y. Dong et al., 2022; Ma et al., 2023; Zhou et al., 2022\), with virtually no improvement seen in atmosphere only high-res models (Moreno-Chamarro et al., 2022\), owing primarily to similar drizzling biases and biases in convective regimes. While these studies are very comprehensive, they have only used mesoscale-resolving models and in cases where they have used storm-resolving km-scale models, they only use short one-month long runs. In this Hackathon, we have a year-long km-scale resolution model output. This will be used to compare the improvements or lack thereof in the bespoke run with observations and low resolution model runs in order to gain a process-oriented understanding of the improvements.
 
    
-![](tconvzones1.png)
+![](img/tconvzones1.png)
 **Fig. 1** a) Spatial patterns of annual-mean tropical precipitation bias in CMIP6 simulations (CMIP6 \- GPCP) and b) decomposition into the part that exists in AMIP simulations without the SST bias (AMIP6 \- GPCP) and c) the part that arises from the SST biases (CMIP6 \- AMIP6). The black contours indicate the annual-mean precipitation climatology (drawn at 5, 8, and 11 mm day21). (d) Annual-mean zonal-mean precipitation in GPCP, AMIP6 and CMIP6. (e) Annual-mean zonal-mean precipitation bias that exists without the SST bias (orange) and that arises after coupling to ocean (blue). Source: (Zhou et al., 2022\)
 
 *Seasonal cycle:*
 
-![](tconvzones2.png)
+![](img/tconvzones2.png)
 **Fig. 2** Climatological location of the ITCZ during 1983-2005, during different seasons, based on observations and CMIP6 models. Some well-known distinct ITCZ features are highlighted in the results from the observations, while the double-ITCZ biases in the eastern Pacific and Atlantic basins are apparent in the CMIP6 results (season Nov-Apr). The areas over which the double-ITCZ biases are quantified are shown as red boxes in panel (d). Source: Mamalakis et al., (2021)
 
 Improvements in regional tropical rainfall patterns in high-resolution models are mainly linked with improvements in orography and also due to the improvements in the seasonal cycle of the ITCZ (Doi et al., 2012\). These improvements in the meridional migration of the ITCZ in high-resolution coupled models has been linked to improvements in the seasonal changes in SST patterns, but in high-resolution atmosphere-only models, these improvements are largely associated with improvements in the seasonal wind-reversal patterns in models (Song & Zhang, 2020\). Given this relationship between wind and rainfall biases, we can use the km-scale model runs to compare seasonal cycle of rainfall and seasonal wind-reversal patterns.
