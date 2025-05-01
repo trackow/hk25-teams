@@ -50,7 +50,11 @@ You should see a message like this:
 
 You should see a file called `simple_plot.ipynb` in your Jupyter Hub (left column under a list of files in your home directory). Double click it to open the Notebook.
 
+![](https://raw.githubusercontent.com/digital-earths-global-hackathon/hk25-teams/main/hk25-USWest/images/getstart_img1.gif)
+
 2. Click the upper right corner with the text "NERSC Python ◯", a pop-up menu will open, select the kernel "hackathon".
+
+![](https://raw.githubusercontent.com/digital-earths-global-hackathon/hk25-teams/main/hk25-USWest/images/getstart_img2.gif)
 
 3. Run the sample notebook.
 
