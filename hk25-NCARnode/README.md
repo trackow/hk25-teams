@@ -24,11 +24,11 @@ This repository contains subfolders for each of the science groups that collect 
 
 The additional subfolders contain...
 
-    **/basics/** Example notebooks how to read in and make basics plot using the NCAR-hosted datasets
+    /basics/ Example notebooks how to read in and make basics plot using the NCAR-hosted datasets
 
-    **/observations/**  Example notebooks to access observational datasets on NCAR's glade system that can be used for model evaluation
+    /observations/  Example notebooks to access observational datasets on NCAR's glade system that can be used for model evaluation
 
-    **/uxarray/** Examples on how to work with unstructured grids using **uxarray**
+    /uxarray/ Examples on how to work with unstructured grids using **uxarray**
 
 
 
