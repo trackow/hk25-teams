@@ -4,9 +4,10 @@ Tropical Cyclones (TCs) are intense organised convective systems that are respon
  
 In this team, we will investigate how TCs are represented in the new sets of simulations in terms of statistics, structure, lifecycle and link with the environment.
 
-**Coordination**: Stella Bourdin (stella.bourdin@physics.ox.ac.uk), Masaki Satoh (satoh@aori.u-tokyo.ac.jp)
+**Coordination**: Stella Bourdin (stella.bourdin@physics.ox.ac.uk), Arthur Avenas (arthur.avenas@esa.int), Masaki Satoh (satoh@aori.u-tokyo.ac.jp)
  
 Sketch of initial activities:
   + Track TCs in the simulations using TempestExtremes -> Assess TCs statistics, particularly in terms of intensity and intensification rates
   + Retrieve snapshots of tropical cyclones’ structure -> Assess tropical cyclones structure
   + Retrieve/compute variables associated with environmental favourability for TC (e.g. GPI) -> Assess how the environment controls TCs, particularly the moisture field and the components of Potential Intensity
+  + Comparison of TC tracks from re-analyses / models and from satellite observations
