@@ -58,4 +58,10 @@ You should see a file called `simple_plot.ipynb` in your Jupyter Hub (left colum
 
 3. Run the sample notebook.
 
-More detailed documentation of Jupyter on NERSC is available [here](https://docs.nersc.gov/services/jupyter/).
+## Useful links for new NERSC users
+
+- Using **Python** at NERSC ([video recording](https://www.youtube.com/watch?v=WstVoxl6sXM))
+
+- Using **Jupyter** at NERSC ([video recording](https://www.youtube.com/watch?v=U9O59DQ9zhc))
+
+- Detailed documentation of Jupyter on NERSC is available [here](https://docs.nersc.gov/services/jupyter/).
