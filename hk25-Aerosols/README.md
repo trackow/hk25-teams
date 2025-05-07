@@ -1,4 +1,4 @@
-# Hemispheric Albedo Symmetry (hk25-AlbedoSym)
+# Km-scale representation of aerosol transport and interaction with radiation and clouds (hk25-Aerosols)
 
 This science team will assess the representation of aerosol transport and interaction with radiation and clouds. The team will analyze a year-long, km-scale simulation with interactive aerosols. The aerosols are represented with four modes with prescribed sizes and compositions, i.e., dust, sea salt, carbonaceous aerosol, and sulfuric aerosol. The four modes are transported through the atmosphere and are coupled with various processes such as radiation, convection, and precipitation [(Weiss et al. 2024)](https://egusphere.copernicus.org/preprints/2024/egusphere-2024-3325/).  
  
