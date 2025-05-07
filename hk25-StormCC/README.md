@@ -1,5 +1,4 @@
-
-## STORMS under Climate Change (hk25-STORMCC)
+# STORMS under Climate Change (hk25-STORMCC)
 
 Kilometer-scale climate models offer new opportunities to better understand drivers
 of near-surface winds and their effects under both present-day climate condition and
