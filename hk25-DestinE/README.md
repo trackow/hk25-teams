@@ -12,3 +12,6 @@ In this cross-cutting activity, we will exploit DestinE runs for new scientific 
 * Gain access to the DestinE platform
 * Identify analyses from science teams that could be executed on that platform and/or extended in scope using longer-term scenario simulations
 * Perform analyses and compare to other Hackathon models
+
+#### Start here:
+It is a good idea to start from our [short introduction](intro/introduction.md), which answers many frequent questions on how to access the DestinE data via DESP.
