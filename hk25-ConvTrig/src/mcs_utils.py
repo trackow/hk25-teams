@@ -214,3 +214,71 @@ def _is_max_trigger_area_all_ocean(
             all(~np.isnan(ocean_mask.sel(cell=trigger_area_idxs)))
             )
     return is_max_trigger_area_all_ocean
+
+
+# ------------------------------------------------------------------------------
+# Functions to subsample variables in MCS trigger area
+# ------------------------------------------------------------------------------
+def get_var_in_trigger_area(
+        mcs_trigger_locs: xr.DataArray,
+        data_field: xr.DataArray,
+        ) -> xr.DataArray:
+    """
+    Select the values of a field in the triggering area of MCSs.
+
+    This function selects the values of a given field within the 
+    triggering area of Mesoscale Convective Systems (MCSs) for each track 
+    and radius.
+
+    Parameters
+    ----------
+    mcs_trigger_locs : xr.DataArray
+        DataArray containing the MCS trigger locations. It must include 
+        the 'trigger_area_idxs' coordinate, which specifies the Healpix 
+        cell indices of the trigger areas.
+    data_field : xr.DataArray
+        DataArray containing the simulation data. It must include a 
+        'cell' dimension corresponding to the Healpix grid.
+
+    Returns
+    -------
+    xr.DataArray
+        DataArray containing the mean values of the variable in the 
+        triggering area for each track and radius. The dimensions are 
+        ['tracks', 'radius'].
+    """
+    
+    var_in_trigger_area = _init_var_in_trigger_area(mcs_trigger_locs)
+
+    for j, track in enumerate(mcs_trigger_locs['tracks']):
+        start_basetime = mcs_trigger_locs.sel(tracks=track)['start_basetime']
+        var_before_triggering = data_field.sel(
+            time=start_basetime, method='pad',
+            ).compute()
+
+        for i, radius in enumerate(mcs_trigger_locs['radius']):
+            # Get trigger area cell indicees
+            trigger_area_idxs = mcs_trigger_locs['trigger_area_idxs']\
+                .sel(tracks=track, radius=radius)
+            trigger_area_idxs = trigger_area_idxs[~np.isnan(trigger_area_idxs)]
+
+            var_in_trigger_area[j, :trigger_area_idxs.shape[0], i] = \
+                var_before_triggering.sel(cell=trigger_area_idxs).data
+    
+    return var_in_trigger_area
+
+
+def _init_var_in_trigger_area(
+        mcs_trigger_locs: xr.DataArray,
+        ) -> xr.DataArray:
+    tracks = mcs_trigger_locs['tracks']
+    cells = mcs_trigger_locs['cell']
+    radii = mcs_trigger_locs['radius']
+    return xr.DataArray(
+        data=np.full(
+            shape=(tracks.shape[0], cells.shape[0], radii.shape[0]),
+            fill_value=np.nan,
+            ),
+        dims=['tracks', 'cell', 'radius'],
+        coords={'tracks': tracks, 'cell': cells, 'radius': radii},
+        )
