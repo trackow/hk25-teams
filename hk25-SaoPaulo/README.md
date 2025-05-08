@@ -1,6 +1,9 @@
-Suggested topics over South America using high-resolution climate simulations:
+## São Paulo Node: research topics (hk25-SaoPaulo):
 
-- **Simulation Verification:** Application of Statistical Metrics
+The São Paulo node has proposed ten key research topics, focusing on significant atmospheric phenomena in South America. Our primary goal is to utilize high-resolution climate simulations to investigate and gain a deeper understanding of these critical areas. We aim to analyze global climate models through a regional lens, concentrating specifically on our continent. This approach will leverage existing tools, methodologies, and datasets to gain valuable insights.
+
+# Topics: 
+- **Simulation Verification:** Application of statistical Metrics
   
 - **Model Performance in Complex Regions**: Assess simulation results in areas where models typically struggle. Example regions: Andes, Eastern Amazon.
 
@@ -19,3 +22,7 @@ Suggested topics over South America using high-resolution climate simulations:
 - **Case Studies**: Analyze specific events such as cyclones, MCSs, etc. See GrEC`s table.
 
 - **Extremes Analysis**: Investigate precipitation and temperature extremes.
+
+# Coordination: Professor Rosmeri Porfirio da Rocha (rosmerir.rocha@iag.usp.br)
+
+
