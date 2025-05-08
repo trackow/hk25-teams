@@ -3,7 +3,7 @@
 The São Paulo node has proposed ten key research topics, focusing on significant atmospheric phenomena in South America. Our primary goal is to utilize high-resolution climate simulations to investigate and gain a deeper understanding of these critical areas. We aim to analyze global climate models through a regional lens, concentrating specifically on our continent. This approach will leverage existing tools, methodologies, and datasets to gain valuable insights.
 
 ### Topics: 
-- **Simulation Verification:** Application of statistical Metrics
+- [Simulation Verification](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_ver_stats.md)
   
 - **Model Performance in Complex Regions**: Assess simulation results in areas where models typically struggle. Example regions: Andes, Eastern Amazon.
 
