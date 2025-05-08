@@ -2,7 +2,7 @@
 
 This science team will evaluate the characteristics of a traceable hierarchy of model simulations including global 10km, global 5km, tropical cyclic channel and limited area models at higher resolution using a range of model physics to understand the relative impact of domain extent, physics and resolution on key climate variables including precipitation, clouds and radiation. Analysis will focus on key regions of interest, utilising the availability of limited area models across South America, Africa and South East Asia domains as regional model benchmarks.
 
-**Coordination**: Richard Jones (richard.w.jones@metoffice.gov.uk)
+**Coordination**: Richard Jones (richard.w.jones@metoffice.gov.uk), Huw Lewis (huw.lewis@metoffice.gov.uk)
 
 ## Sketch of initial activities
 
