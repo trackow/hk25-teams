@@ -318,6 +318,31 @@ def _get_var_in_trigger_area_multiple(
         times_before_trigger: np.timedelta64,
         analysis_time: np.datetime64,
         ) -> xr.DataArray:
+    """
+    Extracts and aggregates data from a specified field within the trigger area 
+    of multiple MCS (Mesoscale Convective Systems) tracks over a given time 
+    period before the trigger event.
+
+    Parameters
+    ----------
+    mcs_trigger_locs : xr.DataArray
+        An xarray DataArray containing the MCS trigger locations, including 
+        track and radius information.
+    data_field : xr.DataArray
+        An xarray DataArray representing the data field to be analyzed (e.g., 
+        temperature, humidity) with dimensions including 'time' and 'cell'.
+    times_before_trigger : np.timedelta64
+        The time duration before the MCS trigger event to consider for analysis.
+    analysis_time : np.datetime64
+        The start time of the analysis period. Data before this time will be 
+        excluded.
+
+    Returns
+    -------
+    xr.DataArray
+        A DataArray containing the extracted data field values within the 
+        trigger area for each track and radius over the specified time period.
+    """
     _check_time_before_trigger_validity(data_field, times_before_trigger)
     var_in_trigger_area = _init_var_in_trigger_area_multiple(
         mcs_trigger_locs, data_field, times_before_trigger
@@ -343,10 +368,28 @@ def _get_var_in_trigger_area_multiple(
     return var_in_trigger_area
 
 
-
 def _init_var_in_trigger_area(
-        mcs_trigger_locs: xr.DataArray,
+         mcs_trigger_locs: xr.DataArray,
         ) -> xr.DataArray:
+    """
+    Initialize a DataArray that stores variables within the trigger area.
+
+    This function creates an xarray DataArray with dimensions corresponding
+    to tracks, cells, and radii, and initializes it with NaN values. The
+    coordinates for the DataArray are derived from the input `mcs_trigger_locs`.
+
+    Parameters
+    ----------
+    mcs_trigger_locs : xr.DataArray
+        Input DataArray containing the coordinates `tracks`, `cell`, and
+        `radius` that define the dimensions of the trigger area.
+
+    Returns
+    -------
+    xr.DataArray
+        A DataArray initialized with NaN values, having dimensions
+        ['tracks', 'cell', 'radius'] and corresponding coordinates.
+    """
     tracks = mcs_trigger_locs['tracks']
     cells = mcs_trigger_locs['cell']
     radii = mcs_trigger_locs['radius']
@@ -364,6 +407,30 @@ def _init_var_in_trigger_area_multiple(
         mcs_trigger_locs: xr.DataArray,
         *vars
         ) -> xr.DataArray:
+    """
+    Initialize a multi-dimensional xarray.DataArray that stores the variables in
+    the trigger area.
+
+    This function creates an xarray.DataArray with dimensions corresponding to 
+    tracks, cells, radii, and time steps before triggering. The array is filled 
+    with NaN values and is intended to store data for multiple variables in the 
+    trigger area of MCS (Mesoscale Convective Systems).
+
+    Parameters
+    ----------
+    mcs_trigger_locs : xr.DataArray
+        An xarray.DataArray containing the MCS trigger locations with dimensions 
+        'tracks', 'cell', and 'radius'.
+    *vars : tuple
+        A variable-length argument list of xarray.DataArray objects, which are 
+        used to determine the number of time steps before triggering.
+
+    Returns
+    -------
+    xr.DataArray
+        An xarray.DataArray initialized with NaN values, with dimensions 
+        ['tracks', 'cell', 'radius', 'time'] and corresponding coordinates.
+    """
     tracks = mcs_trigger_locs['tracks']
     cells = mcs_trigger_locs['cell']
     radii = mcs_trigger_locs['radius']
@@ -381,10 +448,28 @@ def _init_var_in_trigger_area_multiple(
         coords={'tracks': tracks, 'cell': cells, 'radius': radii, 'time': time},
         )
 
+
 def _get_i_time_before_trigger(
         data_field: xr.DataArray,
         times_before_trigger: np.timedelta64,
         ) -> int:
+    """
+    Calculate the number of time steps in a data field that fall within a 
+    specified time range before the last time step.
+
+    Parameters
+    ----------
+    data_field : xr.DataArray
+        The data array containing a 'time' coordinate to evaluate.
+    times_before_trigger : np.timedelta64
+        The time duration before the last time step to consider. If None, 
+        defaults to 1 time step.
+
+    Returns
+    -------
+    int
+        The number of time steps within the specified time range.
+    """
     if times_before_trigger is not None:
         last_time = data_field['time'].isel(time=-1)
         start_time = last_time - times_before_trigger
@@ -398,6 +483,29 @@ def _get_i_time_before_trigger(
     
 
 def _get_sample_frequency(data_field: xr.DataArray) -> bool:
+    """
+    Determine the sample frequency of a time-series data field.
+
+    This function calculates the differences between consecutive time points
+    in the `time` dimension of the provided xarray DataArray. It ensures that
+    the time dimension is uniformly sampled. If the time differences are not
+    uniform, a ValueError is raised.
+
+    Parameters
+    ----------
+    data_field : xr.DataArray
+        The input data field containing a `time` dimension.
+
+    Returns
+    -------
+    sample_frequency : np.ndarray
+        The unique time difference representing the sample frequency.
+
+    Raises
+    ------
+    ValueError
+        If the time dimension of the data field is not uniformly sampled.
+    """
     sample_frequency = np.unique(data_field.time.diff('time'))
     if sample_frequency.size != 1:
         raise ValueError(
@@ -406,10 +514,37 @@ def _get_sample_frequency(data_field: xr.DataArray) -> bool:
     else:
         return sample_frequency
     
+
 def _check_time_before_trigger_validity(
         data_field: xr.DataArray,
         times_before_trigger: np.timedelta64,
         ):
+    """
+    Validates the `times_before_trigger` parameter against the sampling
+    frequency of the provided data field.
+
+    Parameters
+    ----------
+    data_field : xr.DataArray
+        The data array containing the time series data for which the
+        validation is performed. The sampling frequency is derived from
+        this data.
+    times_before_trigger : np.timedelta64
+        The time duration before the trigger event that needs to be
+        validated. Must be a multiple of the sampling frequency.
+
+    Raises
+    ------
+    ValueError
+        If `times_before_trigger` is not a multiple of the sampling
+        frequency of the `data_field`.
+
+    Notes
+    -----
+    The sampling frequency is calculated based on the time intervals
+    in the `data_field`. Ensure that the `data_field` has a consistent
+    time step for accurate validation.
+    """
     sample_frequency = _get_sample_frequency(data_field)
     if (times_before_trigger % sample_frequency) != 0:
         raise ValueError(
@@ -424,6 +559,27 @@ def _select_trigger_area_idxs(
         track: int,
         radius: int,
         ) -> xr.DataArray:
+    """
+    Selects the indices of the trigger area for a specific track and radius 
+    from the given MCS trigger locations.
+
+    Parameters
+    ----------
+    mcs_trigger_locs : xr.DataArray
+        DataArray containing the MCS trigger locations, including the 
+        'trigger_area_idxs' variable.
+    track : int
+        The track identifier for which the trigger area indices are to be 
+        selected.
+    radius : int
+        The radius value specifying the spatial extent of the trigger area.
+
+    Returns
+    -------
+    xr.DataArray
+        A DataArray containing the indices of the trigger area for the 
+        specified track and radius, with NaN values removed.
+    """
     trigger_area_idxs = mcs_trigger_locs['trigger_area_idxs']\
         .sel(tracks=track, radius=radius)
     return trigger_area_idxs[~np.isnan(trigger_area_idxs)]
