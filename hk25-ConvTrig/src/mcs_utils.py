@@ -106,7 +106,7 @@ def _get_trigger_area_idxs(
 
 def _init_trigger_area_idxs_array(
         tracks: np.ndarray,
-        trigger_area_idxs_list: list,
+        trigger_area_idxs: list,
         radii: np.ndarray,
         ) -> xr.DataArray:
     """
@@ -133,12 +133,12 @@ def _init_trigger_area_idxs_array(
         parameters.
     """    
     cells = np.arange(
-        0, np.array([l.shape[0] for l in trigger_area_idxs_list]).max()
+        0, np.array([l.shape[0] for l in trigger_area_idxs]).max()
         )
 
     trigger_area_idxs_array = xr.DataArray(
         data=np.full(
-            shape=(tracks.shape[0], cells.shape[0], radii.shape[0]),
+            shape=(tracks.size, cells.size, radii.size),
             fill_value=np.nan,
         ),
         dims=['tracks', 'cell', 'radius'],
@@ -276,8 +276,7 @@ def _init_var_in_trigger_area(
     radii = mcs_trigger_locs['radius']
     return xr.DataArray(
         data=np.full(
-            shape=(tracks.shape[0], cells.shape[0], radii.shape[0]),
-            fill_value=np.nan,
+            shape=(tracks.size, cells.size, radii.size), fill_value=np.nan,
             ),
         dims=['tracks', 'cell', 'radius'],
         coords={'tracks': tracks, 'cell': cells, 'radius': radii},
