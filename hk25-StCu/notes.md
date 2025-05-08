@@ -1,7 +1,29 @@
 
-# Mesoscale structure of stratocumulus (hk25-StCu): pre-hackathon intro notes
+# Mesoscale structure of stratocumulus (hk25-StCu): pre-hackathon inspirations
 
 **Coordination**: Jakub Nowak (jakub.nowak@mpimet.mpg.de)
+
+
+### Regions and seasons of interest
+
+Classical 4 subtropical eastern ocean basins
+
+- 10 x 10 deg domains from [Klein and Hartmann 1993](https://doi.org/10.1175/1520-0442(1993)006<1587:TSCOLS>2.0.CO;2)
+```python
+domains10x10 = {
+    "peruvian":     np.array([-90, -80, -20, -10]) ,
+    "namibian":     np.array([0, 10, -20, -10]),
+    "californian":  np.array([-130, -120, 20, 30]),
+    "canarian":     np.array([-35, -25, 15, 25])
+}
+```
+- 4 x 4 deg domains in the middle of the above used in [Nowak et al. 2025](https://doi.org/10.1029/2024MS004340)
+```python
+offset = np.array([3, -3, 3, -3])
+domains4x4 = {name: coords+offset for name, coords in domains10x10.items()}
+```
+
+The month of maximum observed albedo in those domains is July for Canarian and August for the other three.
 
 
 
@@ -17,11 +39,11 @@ Probability distributions
    - skewness and kurtosis
 
 2D power spectrum
-   - The image is first detrended by removing the best-fit plane and then windowed using a Welch window.
+<!--   - The image is first detrended by removing the best-fit plane and then windowed using a Welch window. -->
    - The spectrum is a function of total wavenumber $k^2=k_x^2+k_y^2$
    - Two characteristic lengthscales are derived from the spectrum:
-      - $\lambda_1$, peak wavelength, can be interpreted as the approximate diameter of mesoscale convective cells
-      - $\lambda_2$, wavelength where the spectrum deviates from power law characteristic for smallest scales, can be interpreted as the typical size of clouds inside the cells.
+      - peak wavelength $\lambda_1$ can be interpreted as the approximate diameter of mesoscale convective cells
+      - wavelength where the spectrum deviates from power law (characteristic for smallest scales) $\lambda_2$ can be interpreted as the typical size of clouds inside the cells.
 
 
 #### [Wood et al. 2008](https://doi.org/10.1029/2007JD009371): variance of band-pass filtered IR brightness temperature
@@ -37,35 +59,35 @@ This metric was designed to detect pockets of open cells which exhibit higher me
 
 #### [Koren et al. 2024](https://doi.org/10.1029/2024GL108435): cloud vs void chord length distributions (LvL)
 
-- Consider a Bernoulli random matrix with M pixels where each pixel has an equal probability p of being cloudy.
-- Rearrange the 2D matrix into a concatenated 1D vector by glueing sequentially. Do this flattening in both vertical and horizontal directions.
+- Consider a Bernoulli random matrix with $M$ pixels where each pixel has an equal probability $p$ of being cloudy.
+- Rearrange the matrix into a concatenated 1D vector by glueing sequentially. Do this flattening in both vertical and horizontal directions.
 - The normalized random cloud-chord length distribution is $p^{L-1}(1-p)$ and the normalized random void-chord length distribution is $(1-p)^{L-1}p$.
 - The deviation of an observed distribution from randomness is measured with a goodness-of-fit score based on the Kolmogorov-Smirnov test.
 - LvL score consists of two components, for cloud and voids, forming the 2D LvL space.
 - LvL fails when cloud fraction is 0 or 1!
 
-There is a python [function](tools/LvL.py) provided in the [Koren et al. 2024 \[software\]](https://doi.org/10.34933/b7f2cded-40d3-4be9-bdc6-31b2694ca49c)
+There is a python [function](tools/LvL.py) provided in [Koren et al. 2024 \[software\]](https://doi.org/10.34933/b7f2cded-40d3-4be9-bdc6-31b2694ca49c)
 
 
 #### [Bagioli and Tompkins 2023](https://doi.org/10.1175/JAS-D-23-0103.1): Iorg and Lorg
 
-This metric may be insuitable for stratocumulus clouds which are much connected objects but this can be verified.
+This metric may be insuitable for stratocumulus clouds if they are represented by large connected objects.
 
 Iorg
 - Segment the binary field into connected objects.
 - For each object, compute the distance from its centroid to a nearest neighbour.
 - Derive the cumulative density function of nearest neighbour distances NNCDF(r).
-- For a random field NNCDF(r) is a Weibull distribution $1-\exp(\lambda\pi r^2)$ (where $\lambda$ is mean density of objects).
+- For a random field, NNCDF(r) is a Weibull distribution $1-\exp(\lambda\pi r^2)$, where $\lambda$ is mean density of objects.
 - Plot the observed NNCDF against the NNCDF of a random field.
 - Integrate the area under the graph to obtain Iorg.
 - Iorg = 0.5 indicates randomness, Iorg > 0.5 clustering, Iorg < 0.5 regularity.
 
-[comment]: # ( Iorg = 0.5 does not guarantee random distribution of objects because it integrates over all scales. There may be a superposition of clustered and regular subdistributions which appear at different scales. )
+<!-- ( Iorg = 0.5 does not guarantee random distribution of objects because it integrates over all scales. There may be a superposition of clustered and regular subdistributions which appear at different scales. -->
 
 Lorg
 - Instead of NNCDF(r), derive the distribution of number of neighbours NN(r) closer than r.
 - Compute a radius of a disk which would include the same NN in the case of a random field, i.e. $\lambda\pi L^2=NN(r)$
-- Plot $L(r)/r_{max}$ vs $r/r_{max}$ where $r_{max}$ is the maximum distance between the objects in the considered domain.
+- Plot $L(r)/r_{max}$ vs $r/r_{max}$ where $r_{max}$ is the maximum possible distance between the objects in the considered domain.
 - Integrate the area under the graph to obtain Lorg.
 
 There is a python [function](tools/ILorg.py) provided in https://github.com/giobiagioli/organization_indices.
@@ -74,7 +96,12 @@ There is a python [function](tools/ILorg.py) provided in https://github.com/giob
 
 ### Conceptual mechanism
 
-[Comstock et al. 2005](https://doi.org/10.1175/JAS3567.1), [van Zanten and Stevens 2005](https://doi.org/10.1175/JAS3611.1), [Wood et al. 2011](https://doi.org/10.5194/acp-11-2341-2011)
+#### [Comstock et al. 2005](https://doi.org/10.1175/JAS3567.1)
+
+#### [van Zanten and Stevens 2005](https://doi.org/10.1175/JAS3611.1)
+
+#### [Wood et al. 2011](https://doi.org/10.5194/acp-11-2341-2011)
+
 
 
 ### Healpix grids
