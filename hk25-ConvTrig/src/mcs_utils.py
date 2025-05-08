@@ -2,6 +2,7 @@ import xarray as xr
 import numpy as np
 import healpy as hp
 import easygems.healpix as egh
+from typing import Tuple, Optional
 
 # ------------------------------------------------------------------------------
 # Functions to determine triggering area of MCSs
@@ -220,15 +221,17 @@ def _is_max_trigger_area_all_ocean(
 # Functions to subsample variables in MCS trigger area
 # ------------------------------------------------------------------------------
 def get_var_in_trigger_area(
-        mcs_trigger_locs: xr.DataArray,
-        data_field: xr.DataArray,
+        *vars,
+        times_before_trigger: Optional[np.timedelta64] = None,
+        analysis_time: Optional[Tuple[np.datetime64]] = None,
         ) -> xr.DataArray:
     """
-    Select the values of a field in the triggering area of MCSs.
+    Retrieve variable values in the triggering area of MCSs.
 
-    This function selects the values of a given field within the 
+    This function retrieves the values of a given variable within the 
     triggering area of Mesoscale Convective Systems (MCSs) for each track 
-    and radius.
+    and radius. If a time range before the triggering is specified, it 
+    retrieves the variable values for multiple time steps.
 
     Parameters
     ----------
@@ -239,33 +242,106 @@ def get_var_in_trigger_area(
     data_field : xr.DataArray
         DataArray containing the simulation data. It must include a 
         'cell' dimension corresponding to the Healpix grid.
+    times_before_trigger : np.timedelta64, optional
+        Time range before the triggering to retrieve variable values. If 
+        None, only the values at the triggering time are retrieved.
 
     Returns
     -------
     xr.DataArray
-        DataArray containing the mean values of the variable in the 
-        triggering area for each track and radius. The dimensions are 
-        ['tracks', 'radius'].
+        DataArray containing the variable values in the triggering area 
+        for each track, radius, and optionally time. The dimensions are 
+        ['tracks', 'cell', 'radius'] if no time range is specified, or 
+        ['tracks', 'cell', 'radius', 'time'] if a time range is provided.
     """
-    
-    var_in_trigger_area = _init_var_in_trigger_area(mcs_trigger_locs)
+    if times_before_trigger is None:
+        return _get_var_in_trigger_area(*vars)
+    else:
+        return _get_var_in_trigger_area_multiple(
+            *vars, times_before_trigger, analysis_time
+            )
 
+
+def _get_var_in_trigger_area(
+        mcs_trigger_locs: xr.DataArray,
+        data_field: xr.DataArray,
+        ) -> xr.DataArray:
+    """
+    Extracts variable values within the trigger area for each MCS track and
+    radius. This function processes the provided MCS trigger locations and a
+    data field to extract the variable values within the defined trigger area
+    for each track and radius. The trigger area is determined based on the
+    indices corresponding to the MCS trigger locations and the specified radius.
+
+    Parameters
+    ----------
+    mcs_trigger_locs : xr.DataArray
+        A DataArray containing the MCS trigger locations with dimensions
+        ['tracks', 'radius', ...]. It includes metadata such as 'start_basetime'
+        for each track.
+    data_field : xr.DataArray
+        A DataArray containing the data field to be analyzed. It must have a
+        'time' dimension and a 'cell' dimension that corresponds to spatial
+        indices.
+    
+    Returns
+    -------
+    xr.DataArray
+        A DataArray containing the variable values within the trigger area for
+        each track and radius. The dimensions are ['tracks', 'cells', 'radius'],
+        where 'cells' corresponds to the number of spatial indices in the
+        trigger area for each radius.
+    """
+    var_in_trigger_area = _init_var_in_trigger_area(mcs_trigger_locs)
+    
     for j, track in enumerate(mcs_trigger_locs['tracks']):
-        start_basetime = mcs_trigger_locs.sel(tracks=track)['start_basetime']
-        var_before_triggering = data_field.sel(
-            time=start_basetime, method='pad',
-            ).compute()
+        # Subsample the data field for analysis
+        mcs_start_basetime = mcs_trigger_locs.sel(tracks=track)\
+            ['start_basetime'].values
+        var_before_trigger = data_field.sel(
+            time=mcs_start_basetime, method='pad'
+            )
 
         for i, radius in enumerate(mcs_trigger_locs['radius']):
-            # Get trigger area cell indicees
-            trigger_area_idxs = mcs_trigger_locs['trigger_area_idxs']\
-                .sel(tracks=track, radius=radius)
-            trigger_area_idxs = trigger_area_idxs[~np.isnan(trigger_area_idxs)]
-
+            trigger_area_idxs = _select_trigger_area_idxs(
+                mcs_trigger_locs, track, radius
+                )
             var_in_trigger_area[j, :trigger_area_idxs.shape[0], i] = \
-                var_before_triggering.sel(cell=trigger_area_idxs).data
+                var_before_trigger.sel(cell=trigger_area_idxs).data
     
     return var_in_trigger_area
+
+
+def _get_var_in_trigger_area_multiple(
+        mcs_trigger_locs: xr.DataArray,
+        data_field: xr.DataArray,
+        times_before_trigger: np.timedelta64,
+        analysis_time: np.datetime64,
+        ) -> xr.DataArray:
+    _check_time_before_trigger_validity(data_field, times_before_trigger)
+    var_in_trigger_area = _init_var_in_trigger_area_multiple(
+        mcs_trigger_locs, data_field, times_before_trigger
+        )
+    
+    for j, track in enumerate(mcs_trigger_locs['tracks']):
+        # Subsample the data fileld for analysis
+        mcs_start_basetime = mcs_trigger_locs.sel(tracks=track)\
+            ['start_basetime'].values
+        pre_mcs_start_basetime = mcs_start_basetime - times_before_trigger
+        if pre_mcs_start_basetime < analysis_time[0]: continue
+        var_before_trigger = data_field.sel(
+            time=slice(pre_mcs_start_basetime, mcs_start_basetime),
+        )
+
+        for i, radius in enumerate(mcs_trigger_locs['radius']):
+            trigger_area_idxs = _select_trigger_area_idxs(
+                mcs_trigger_locs, track, radius
+                )
+            var_in_trigger_area[j, :trigger_area_idxs.shape[0], i, :] = \
+                var_before_trigger.sel(cell=trigger_area_idxs).data.transpose()
+    
+    return var_in_trigger_area
+
 
 
 def _init_var_in_trigger_area(
@@ -274,6 +350,7 @@ def _init_var_in_trigger_area(
     tracks = mcs_trigger_locs['tracks']
     cells = mcs_trigger_locs['cell']
     radii = mcs_trigger_locs['radius']
+
     return xr.DataArray(
         data=np.full(
             shape=(tracks.size, cells.size, radii.size), fill_value=np.nan,
@@ -281,3 +358,72 @@ def _init_var_in_trigger_area(
         dims=['tracks', 'cell', 'radius'],
         coords={'tracks': tracks, 'cell': cells, 'radius': radii},
         )
+
+
+def _init_var_in_trigger_area_multiple(
+        mcs_trigger_locs: xr.DataArray,
+        *vars
+        ) -> xr.DataArray:
+    tracks = mcs_trigger_locs['tracks']
+    cells = mcs_trigger_locs['cell']
+    radii = mcs_trigger_locs['radius']
+
+    # Get the number of time steps before triggering
+    i_time_before_trigger = _get_i_time_before_trigger(*vars)
+    time = np.arange(-i_time_before_trigger, 0, 1)
+
+    return xr.DataArray(
+        data=np.full(
+            shape=(tracks.size, cells.size, radii.size, time.size),
+            fill_value=np.nan,
+            ),
+        dims=['tracks', 'cell', 'radius', 'time'],
+        coords={'tracks': tracks, 'cell': cells, 'radius': radii, 'time': time},
+        )
+
+def _get_i_time_before_trigger(
+        data_field: xr.DataArray,
+        times_before_trigger: np.timedelta64,
+        ) -> int:
+    if times_before_trigger is not None:
+        last_time = data_field['time'].isel(time=-1)
+        start_time = last_time - times_before_trigger
+        data_field = data_field.where(
+            (data_field['time'] >= start_time) &
+            (data_field['time'] < last_time), drop=True
+            )
+        return data_field['time'].size
+    else:
+        return 1
+    
+
+def _get_sample_frequency(data_field: xr.DataArray) -> bool:
+    sample_frequency = np.unique(data_field.time.diff('time'))
+    if sample_frequency.size != 1:
+        raise ValueError(
+            "The time dimension of the data field is not uniformly sampled."
+            )
+    else:
+        return sample_frequency
+    
+def _check_time_before_trigger_validity(
+        data_field: xr.DataArray,
+        times_before_trigger: np.timedelta64,
+        ):
+    sample_frequency = _get_sample_frequency(data_field)
+    if (times_before_trigger % sample_frequency) != 0:
+        raise ValueError(
+            f"Please provide a 'times_before_trigger' that is a multiple of " +
+            f"the sampling frequency of the data field. The sampling " +
+            f"frequency is {(sample_frequency / np.timedelta64(1, 'h'))[0]} " +
+            f"hours.")
+    
+
+def _select_trigger_area_idxs(
+        mcs_trigger_locs: xr.DataArray,
+        track: int,
+        radius: int,
+        ) -> xr.DataArray:
+    trigger_area_idxs = mcs_trigger_locs['trigger_area_idxs']\
+        .sel(tracks=track, radius=radius)
+    return trigger_area_idxs[~np.isnan(trigger_area_idxs)]
