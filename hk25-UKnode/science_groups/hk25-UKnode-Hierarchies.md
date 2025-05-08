@@ -7,7 +7,8 @@ This science team will evaluate the characteristics of a traceable hierarchy of 
 ## Sketch of initial activities
 
 - Examine the time-mean basic state of key model variables, making direct comparisons across the model hierarchy.
-- Examine the time evolution and seasonal characteristics of model variables of interest, exploring their sensitivity to model choices.
+- Examine the time evolution, from diurnal to seasonal cycles and characteristics of model variables of interest, exploring their sensitivity to model choices.
+- Examine the representation of high impact weather during the year-long simulation period across the model hierarchy.
 - Examine the extent to which domain extent, choice of physics, or grid spacing drive particular model behaviour.
 - In connection with hk25-UKnode-Upscale, exploit the model hierarchy to explore evidence for emergence of new model behaviour (e.g. upscale feedbacks) in higher resolution global or tropical channel simulations. 
 
