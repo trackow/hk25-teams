@@ -1,10 +1,10 @@
 
-# Mesoscale structure of stratocumulus (hk25-StCu): pre-hackathon inspirations
+# Mesoscale structure of stratocumulus (hk25-StCu): pre-hackathon notes
 
-**Coordination**: Jakub Nowak (jakub.nowak@mpimet.mpg.de)
+Jakub Nowak (jakub.nowak@mpimet.mpg.de)
 
 
-### Regions and seasons of interest
+### Regions and seasons
 
 Classical 4 subtropical eastern ocean basins
 
@@ -17,7 +17,7 @@ domains10x10 = {
     "canarian":     np.array([-35, -25, 15, 25])
 }
 ```
-- 4 x 4 deg domains in the middle of the above used in [Nowak et al. 2025](https://doi.org/10.1029/2024MS004340)
+- 4 x 4 deg domains in the middle of the above, used in [Nowak et al. 2025](https://doi.org/10.1029/2024MS004340)
 ```python
 offset = np.array([3, -3, 3, -3])
 domains4x4 = {name: coords+offset for name, coords in domains10x10.items()}
@@ -29,7 +29,7 @@ The month of maximum observed albedo in those domains is July for Canarian and A
 
 ### Morphology metrics
 
-Nonexhaustive list of cloud morphology metrics I encounterd in literature.
+Nonexhaustive list of a few cloud morphology metrics I encounterd in literature.
 
 
 #### [Wood and Hartmann 2006](https://doi.org/10.1175/JCLI3702.1): statistics of liquid water path
@@ -43,14 +43,14 @@ Probability distributions
    - The spectrum is a function of total wavenumber $k^2=k_x^2+k_y^2$
    - Two characteristic lengthscales are derived from the spectrum:
       - peak wavelength $\lambda_1$ can be interpreted as the approximate diameter of mesoscale convective cells
-      - wavelength where the spectrum deviates from power law (characteristic for smallest scales) $\lambda_2$ can be interpreted as the typical size of clouds inside the cells.
+      - wavelength where the spectrum deviates from power law (which is usually observed at the smallest scales) $\lambda_2$ can be interpreted as the typical size of clouds inside the cells.
 
 
 #### [Wood et al. 2008](https://doi.org/10.1029/2007JD009371): variance of band-pass filtered IR brightness temperature
 
-This metric was designed to detect pockets of open cells which exhibit higher mesoscale variability than their surrounding.
+This metric was designed to detect pockets of open cells (POC) which exhibit higher mesoscale variability than their surrounding in the GOES IR satellite imagery.
+A discrete wavelet transform is used as a method of band-pass filtering.
 
-- A discrete wavelet transform is used as a method of band-pass filtering.
 - Select a wavelet function and order. In practice, the order corresponds to the specific range of scales.
 - Apply a discrete wavelet transform to each row of a 2D matrix and replace the values by the transform coefficients of the selected order.
 - Repeat the operation for the columns.
@@ -59,10 +59,11 @@ This metric was designed to detect pockets of open cells which exhibit higher me
 
 #### [Koren et al. 2024](https://doi.org/10.1029/2024GL108435): cloud vs void chord length distributions (LvL)
 
-- Consider a Bernoulli random matrix with $M$ pixels where each pixel has an equal probability $p$ of being cloudy.
-- Rearrange the matrix into a concatenated 1D vector by glueing sequentially. Do this flattening in both vertical and horizontal directions.
-- The normalized random cloud-chord length distribution is $p^{L-1}(1-p)$ and the normalized random void-chord length distribution is $(1-p)^{L-1}p$.
-- The deviation of an observed distribution from randomness is measured with a goodness-of-fit score based on the Kolmogorov-Smirnov test.
+- Rearrange an input binary field into a concatenated 1D vector by glueing sequentially. Do this flattening in both vertical and horizontal directions.
+- Compute two probability distributions: of cloud-chord lengths and void-chord lengths.
+- Compare them with the analogous distributions for a random field with the same cloud fraction $p$.
+    - The normalized random cloud-chord length distribution is $p^{L-1}(1-p)$ and the normalized random void-chord length distribution is $(1-p)^{L-1}p$.
+    - The deviation of the observed distributions from randomness is measured with a goodness-of-fit score based on the Kolmogorov-Smirnov test.
 - LvL score consists of two components, for cloud and voids, forming the 2D LvL space.
 - LvL fails when cloud fraction is 0 or 1!
 
@@ -71,14 +72,13 @@ There is a python [function](tools/LvL.py) provided in [Koren et al. 2024 \[soft
 
 #### [Bagioli and Tompkins 2023](https://doi.org/10.1175/JAS-D-23-0103.1): Iorg and Lorg
 
-This metric may be insuitable for stratocumulus clouds if they are represented by large connected objects.
+This metric may be insuitable for stratocumulus clouds if they correspond to large connected objects but it can be verified. 
 
 Iorg
 - Segment the binary field into connected objects.
 - For each object, compute the distance from its centroid to a nearest neighbour.
 - Derive the cumulative density function of nearest neighbour distances NNCDF(r).
-- For a random field, NNCDF(r) is a Weibull distribution $1-\exp(\lambda\pi r^2)$, where $\lambda$ is mean density of objects.
-- Plot the observed NNCDF against the NNCDF of a random field.
+- Plot the observed NNCDF against the NNCDF of a random field which is is a Weibull distribution $1-\exp(\lambda\pi r^2)$, where $\lambda$ is mean density of objects.
 - Integrate the area under the graph to obtain Iorg.
 - Iorg = 0.5 indicates randomness, Iorg > 0.5 clustering, Iorg < 0.5 regularity.
 
@@ -94,33 +94,30 @@ There is a python [function](tools/ILorg.py) provided in https://github.com/giob
 
 
 
-### Conceptual mechanisms
+### Concepts for mesoscale organization in stratocumulus
 
 #### [Comstock et al. 2005](https://doi.org/10.1175/JAS3567.1)
 
-Observations
-- research vessel for 6 day at a fixed location: radiosondes + radars + ceilometer
-- long-term buoy: thermodynamics + radiation
-- GOES imagery
+Observations: research vessel at a fixed location + permanent buoy
 
 Methods
-- power spectra and cross-spectra analysis of buoy timeseries
-- extraction of mesoscale with a bandpass filter in the range ~10-100 km
+- power spectra and cross-spectra analysis of timeseries
+- extraction of mesoscale with a bandpass filter (~10-100 km)
 - segmentation of ship observation into 3 classes: coupled, less-coupled, drizzling
 - tracking of drizzle cells with a scanning radar
 
 Evidence
-- surface along-wind convergence in mesoscale warm regions and divergence in cooler regions
+- mesoscale surface **along-wind convergence in warm** regions and divergence in cooler regions
 - correlations of mesoscale fluctuations
-    - coupled regime: low variance; **warm+moist** updrafts below thicker cloud with lower CB and higher CTH
-    - drizzling regime: high variance; **cool+moist** downdrafts below thicker clouds with lower CB
+    - coupled regime: low variance; **warm+moist** updrafts below thicker cloud with lower cloud base and higher cloud top
+    - drizzling regime: high variance; **cool+moist** downdrafts below thicker clouds with lower cloud base
 - diurnal cycle of the regimes: coupled dominates in the night, drizzling in the early morning, less-coupled in the afternoon
-- drizzle cells persistent for a few hours -> water must be continuously regenerated by transfer of moisture
+- drizzle cells persistent for a few hours
 - typical scale of closed and open cells 15-60 km
 
 Hypotheses
 - The coupled regime is associated with closed cells, the drizzling with open cells, the less-coupled with afternoon cloud thinning.
-- In the drizzling regime, some vertical mixing must be occurring throughout the boundary layer because moisture is reaching the cloud layer and replenishing it. Moist updrafts could be beneath cloud elements but not evident at the surface or distorted by the evaporatively cooled downdrafts.
+- In the drizzling regime, some vertical mixing must be occurring throughout the BL so that moisture is provided into the cloud. Moist updrafts could appear beneath clouds but are not evident at the surface or distorted by the evaporatively cooled downdrafts.
 
 ![](graphics/comstock_fig11.png)
 ![](graphics/comstock_fig12.png)
@@ -128,14 +125,14 @@ Hypotheses
 
 #### [van Zanten and Stevens 2005](https://doi.org/10.1175/JAS3611.1)
 
-Observations: research flight of highly-instrumented aircraft in DYCOMS-II campaign
+Observations: research aircraft in DYCOMS-II campaign
 
 Methods
 - segmentation into 3 classes: pockets of open cells (POC), drizzling areas inside POC, non-POC
 
 Evidence
 - POC vs nonPOC:
-colder, moister, higher $\theta_e$,
+colder, moister, **higher $\theta_e$**,
 precipitating, higher LWP, lower CDNC, higher droplet effective radius,
 reduced vertical velocity variance below the cloud.
 - The POC, in particular the drizzling areas, have **mean upward velocity** while the non-POC have **mean downward velocity**.
@@ -148,7 +145,7 @@ Hypotheses
     - a larger **mesoscale circulation implied by the vertical velocity**,
     - entrainment of air richer in $\theta_e$.
 - The even more enhanced $\theta_e$ in drizzling cells inside POC can be caused by:
-    - baroclinic circulations envisioned by Paluch and Lenschow (1991)
+    - baroclinic circulations damping horizontal differences in $\theta_v$
     - **increased surface fluxes** due to larger wind speeds related to the spreading of precipitation-induced cold pools,
     - radiative fluxes exporting $\theta_e$ from the clear regions but increasing $\theta_e$ near the cloud base in the saturated regions.
 
@@ -159,11 +156,11 @@ The counterpart to the circulation due to precipitation-induced cold pools in th
 
 #### [Wood et al. 2011](https://doi.org/10.5194/acp-11-2341-2011)
 
-Observations: research flight of highly instrumented aircraft in VOCAL-REx campaign
+Observations: research aircraft flight in VOCAL-REx campaign
 
 Methods
 - sampling the transition between pockets of open cells (POC) and overcast stratocumulus in a number of very long horizontal legs
-- the transition region distinguished subjectively from cloud radar profiles
+- segememtation into 3 classes: POC, overcast, transition zone (distinguished subjectively from cloud radar)
 
 Evidence
 - POC vs overcast
@@ -174,19 +171,21 @@ Evidence
         - cloud top height: broader and bimodal
         - cloud base height: bimodal with lowest bases corresponding to Cu and highest to Sc/St
         - cloud base rain rate: broader (+higher fraction reaching the surface)
-    - most of the condensate in the form of drizzle: $q_r/q_l=$ 3 (POC), 4 (transition), 0.25 (overcast)
-    - thick clouds are broad (few km) active cumuli containing one or more updraft cores and queiscent clouds where the total condensate is roughly the same but almost entirely in the form of drizzle
+    - **most of the condensate in the form of drizzle**: $q_r/q_l=$ 3 (POC), 4 (transition), 0.25 (overcast)
+    - cloud types
+        - thick, rather broad (few km) active Cu containing one or more updraft cores
+        - thin, queiscent St where the total condensate is roughly the same but almost entirely in the form of drizzle
 - Transition zone
     - The boundary is rather uneven, 16-43 km wide, consists of cellular ~20-40 km strongly precipitating cloud cells (but there are also sections where there is no boundary cell).
     - Cloud-base rain rate much stronger than in both POC and overcast. Almost everything reaches the surface.
     - **Multilevel circulation**: 
-strong cold+moist pool drives outflow at low levels, 
-significant mid-level inflow into the boundary cloud cell,
+strong cold+moist pool drives outflow at low levels; 
+significant mid-level inflow into the boundary cloud cell;
 outflow at the cloud level.
 ![](graphics/wood_fig23.png)
 
 Hypotheses
-- Stronger turbulence in the overcast region drives stronger entrainment then in the POC. However, there is no difference in MBL depth which suggests **weaker subsidence in the POC** - there may be compensating circulation between the overcast and POC.
+- Stronger turbulence in the overcast region drives stronger entrainment than in the POC. However, there is no difference in MBL depth which suggests **weaker subsidence in the POC**, so there may be compensating circulation between the overcast and POC.
 - Mesoscale updrafts in the POC may prolong the timescale over which drizzle can remain in cloud, and potentially the cloud lifetime.
 
 ![](graphics/wood_fig21.png)
