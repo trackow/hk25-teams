@@ -193,30 +193,18 @@ Hypotheses
 
 
 
-### Healpix grids
+#### Relevant simulations
 
-<!--
-```python
-nside = 2**zoom
-ncells = 12*nside**2
-```
--->
+| Simulation | Protocol | Mod res (km) | Av type | Time res | Zoom | Out res (km) | 3D variables | 2D variables |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| icon_d3hp003 | atm DYAMOND3 | 2.5 | inst | 6H | 11 | 3.2 | hus qall ta wa | pr rsut |
+| icon_d3hp003aug | atm DYAMOND3 1-day | 2.5 | inst | 15M | 11 | 3.2 | hus qall ta wa | pr rsut |
+| ngc3028* | coupled perpetual 2020 | 5 | mean | 30M | 10 | 6.4 | --- | cllvi pr prw qrvi rsds rsut |
+| ifs_tco3999-ng5_rcmbf | coupled DYAMOND3 | 2.8 | ? | 1H | 11 | 3.2 | cc clwc crwc q t w | blh lcc tcc tclw tcrw tcwv tprate (instant?) +  fdir lsp tp tsr (accum?) | 
+| ifs_tco3999-ng5_rcmb_cf | coupled DYAMOND3 | 2.8 | ? | 1H | 11 | 3.2 | hus qall ta wa | clt clwvi lcc prw tcrw tprate (instant?) + fdir lsp pr rsds (accum?) |
+| ifs_tco3999-ng5_rcmbf_deepoff | coupled DYAMOND3 | 2.8 | ? | 1H | 11 | 3.2 | cc clwc crwc q t w | blh lcc tcc tclw tcrw tcwv tprate (instant?) +  fdir lsp tp tsr (accum?) | 
 
-| zoom | nside | res. (km) | ncells  |
-| ----:| -----:| ---------:| ----------:|
-|    0 | 	1 |	6519.6 | 12 |
-|    1 | 	2 |	3259.8 | 48 |
-|    2 | 	4 |	1629.9 | 192 |
-|    3 |   	8 | 	815.0 | 768 |
-|    4 |	16 | 	407.5 | 3,072 |
-|    5 |	32 | 	203.7 | 12,288 |
-|    6 |	64 | 	101.9 | 49,152 |
-|    7 |   128 |  	50.9 | 196,608 |
-|    8 |   256 |  	25.5 | 786,432 |
-|    9 |   512 |  	12.7 | 3,145,728 |
-|   10 |  1024 |   	6.4 | 12,582,912 |
-|   11 |  2048 |   	3.2 | 50,331,648 |
-|   12 |  4096 |   	1.6 | 201,326,592 |
+*nextGEMS catalog: `https://data.nextgems-h2020.eu/catalog.yaml`
 
 
 
@@ -260,15 +248,31 @@ ncells = 12*nside**2
 | w	    | Vertical velocity |
 
 
-#### Relevant simulations
 
-| Simulation | Protocol | Mod res (km) | Av type | Time res | Zoom | Out res (km) | 3D variables | 2D variables |
-| --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
-| icon_d3hp003 | atm DYAMOND3 | 2.5 | inst | 6H | 11 | 3.2 | hus qall ta wa | pr rsut |
-| icon_d3hp003aug | atm DYAMOND3 1-day | 2.5 | inst | 15M | 11 | 3.2 | hus qall ta wa | pr rsut |
-| ngc3028* | coupled perpetual 2020 | 5 | mean | 30M | 10 | 6.4 | --- | cllvi pr prw qrvi rsds rsut |
-| ifs_tco3999-ng5_rcmbf | coupled DYAMOND3 | 2.8 | ? | 1H | 11 | 3.2 | cc clwc crwc q t w | blh lcc tcc tclw tcrw tcwv tprate (instant?) +  fdir lsp tp tsr (accum?) | 
-| ifs_tco3999-ng5_rcmb_cf | coupled DYAMOND3 | 2.8 | ? | 1H | 11 | 3.2 | hus qall ta wa | clt clwvi lcc prw tcrw tprate (instant?) + fdir lsp pr rsds (accum?) |
-| ifs_tco3999-ng5_rcmbf_deepoff | coupled DYAMOND3 | 2.8 | ? | 1H | 11 | 3.2 | cc clwc crwc q t w | blh lcc tcc tclw tcrw tcwv tprate (instant?) +  fdir lsp tp tsr (accum?) | 
+### Healpix grids
 
-*nextGEMS catalog: `https://data.nextgems-h2020.eu/catalog.yaml`
+<!--
+```python
+nside = 2**zoom
+ncells = 12*nside**2
+```
+-->
+
+| zoom | nside | res. (km) | ncells  |
+| ----:| -----:| ---------:| ----------:|
+|    0 | 	1 |	6519.6 | 12 |
+|    1 | 	2 |	3259.8 | 48 |
+|    2 | 	4 |	1629.9 | 192 |
+|    3 |   	8 | 	815.0 | 768 |
+|    4 |	16 | 	407.5 | 3,072 |
+|    5 |	32 | 	203.7 | 12,288 |
+|    6 |	64 | 	101.9 | 49,152 |
+|    7 |   128 |  	50.9 | 196,608 |
+|    8 |   256 |  	25.5 | 786,432 |
+|    9 |   512 |  	12.7 | 3,145,728 |
+|   10 |  1024 |   	6.4 | 12,582,912 |
+|   11 |  2048 |   	3.2 | 50,331,648 |
+|   12 |  4096 |   	1.6 | 201,326,592 |
+
+
+
