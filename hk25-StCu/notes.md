@@ -120,7 +120,7 @@ Hypotheses
 - The coupled regime is associated with closed cells, the drizzling with open cells, the less-coupled with afternoon cloud thinning.
 - In the drizzling regime, some vertical mixing must be occurring throughout the BL so that moisture is provided into the cloud. Moist updrafts could appear beneath clouds but are not evident at the surface or distorted by the evaporatively cooled downdrafts.
 
-![](graphics/comstock_fig11.png)
+<!-- ![](graphics/comstock_fig11.png) -->
 ![](graphics/comstock_fig12.png)
 
 
@@ -217,3 +217,58 @@ ncells = 12*nside**2
 |   10 |  1024 |   	6.4 | 12,582,912 |
 |   11 |  2048 |   	3.2 | 50,331,648 |
 |   12 |  4096 |   	1.6 | 201,326,592 |
+
+
+
+### Dictionary of variables
+
+#### Selected ICON variables
+
+| key | short name |
+| --- | --- |
+| cllvi	| vertically integrated cloud water |
+| hus	| specific humidity |
+| pr	| precipitation flux |
+| prw	| vertically integrated water vapour |
+| qall	| mass fraction of all hydrometeors in air |
+| qrvi	| vertically integrated rain |
+| rsds	| surface downwelling shortwave radiation |
+| rsut	| toa outgoing shortwave radiation |
+| wa	| vertical velocity in m/s|
+
+#### Selected IFS variables
+
+| key | short name |
+| --- | --- |
+| blh	| Boundary layer height |
+| cc	| Fraction of cloud cover |
+| clwc	| Specific cloud liquid water content |
+| crwc	| Specific rain water content |
+| fdir	| Total sky direct short-wave (solar) radiation at surface |
+| lcc	| Low cloud cover |
+| lsp	| Large-scale precipitation |
+| q	    | Specific humidity |
+| ssrd	| Surface short-wave (solar) radiation downwards |
+| t	    | Temperature |
+| tcc	| Total cloud cover |
+| tclw	| Total column cloud liquid water |
+| tcrw	| Total column rain water |
+| tcwv	| Total column vertically-integrated water vapour |
+| tp	| Total precipitation |
+| tprate | Total precipitation |
+| tsr	|Top net short-wave (solar) radiation |
+| w	    | Vertical velocity |
+
+
+#### Relevant simulations
+
+| Simulation | Protocol | Mod res (km) | Av type | Time res | Zoom | Out res (km) | 3D variables | 2D variables |
+| --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
+| icon_d3hp003 | atm DYAMOND3 | 2.5 | inst | 6H | 11 | 3.2 | hus qall ta wa | pr rsut |
+| icon_d3hp003aug | atm DYAMOND3 1-day | 2.5 | inst | 15M | 11 | 3.2 | hus qall ta wa | pr rsut |
+| ngc3028* | coupled perpetual 2020 | 5 | mean | 30M | 10 | 6.4 | --- | cllvi pr prw qrvi rsds rsut |
+| ifs_tco3999-ng5_rcmbf | coupled DYAMOND3 | 2.8 | ? | 1H | 11 | 3.2 | cc clwc crwc q t w | blh lcc tcc tclw tcrw tcwv tprate (instant?) +  fdir lsp tp tsr (accum?) | 
+| ifs_tco3999-ng5_rcmb_cf | coupled DYAMOND3 | 2.8 | ? | 1H | 11 | 3.2 | hus qall ta wa | clt clwvi lcc prw tcrw tprate (instant?) + fdir lsp pr rsds (accum?) |
+| ifs_tco3999-ng5_rcmbf_deepoff | coupled DYAMOND3 | 2.8 | ? | 1H | 11 | 3.2 | cc clwc crwc q t w | blh lcc tcc tclw tcrw tcwv tprate (instant?) +  fdir lsp tp tsr (accum?) | 
+
+*nextGEMS catalog: `https://data.nextgems-h2020.eu/catalog.yaml`
