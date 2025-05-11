@@ -5,26 +5,26 @@ Global km-scale grids permits an explicit representation of convective storms an
 **Coordination**: Hans Segura Cajachagua (hans.segura@mpimet.mpg.de)
 
 ## The Framework
-To give a framework to our analysis, the following equation is used (`Raymond et al., 2009, < https://doi.org/10.3894/JAMES.2009.1.9>`_): 
+To give a framework to our analysis, the following equation is used [Raymond et al., 2009](https://doi.org/10.3894/JAMES.2009.1.9): 
 
-.. math:: P - E = \frac{Q_\mathrm{rad}+Q_\mathrm{sfc}}{\Gamma}
+$$ P - E = \frac{Q_\mathrm{rad}+Q_\mathrm{sfc}}{\Gamma}$$
 
-where :math:`P` is precipitation, :math:`E` is evaporation, :math:`\Gamma` denotes the normalized gross moist stability, :math:`Q_{\mathrm{rad}}` is radiative heating in the total atmospheric column, :math:`Q_{\mathrm{sfc}}` is heating from surface fluxes. In this definition, :math:`\Gamma` is ratio between the export of energy from the column and the import of moisture into the column: 
+where $P$ is precipitation, $E$ is evaporation, $\Gamma$ denotes the normalized gross moist stability, $Q_{\mathrm{rad}}$ is radiative heating in the total atmospheric column, $Q_{\mathrm{sfc}}$ is heating from surface fluxes. In this definition, $\Gamma$ is ratio between the export of energy from the column and the import of moisture into the column: 
 
-.. math:: \Gamma =  \frac{\nabla.\langle \overrightarrow{V}h \rangle}{\nabla.\langle \overrightarrow{V}q \rangle}
+$$\Gamma =  \frac{\nabla.\langle \overrightarrow{V}h \rangle}{\nabla.\langle \overrightarrow{V}q \rangle}$$
 
-where :math:`\langle \rangle` indicates vertical integration, :math:`\overrightarrow{V}` is the wind vector, :math:`h` is the moist static energy, :math:`q` is specific humidity, and :math:`\nabla` is the gradient. The vertical component of :math:`\Gamma` (:math:`\Gamma_\mathrm{v}`) gives the ratio between the vertical advection of energy in the column and the import of moisture into the column:
+where $\langle \rangle$ indicates vertical integration, $\overrightarrow{V}$ is the wind vector, $h$ is the moist static energy, $q$ is specific humidity, and $\nabla$ is the gradient. The vertical component of $\Gamma$ ($\Gamma_\mathrm{v}$) gives the ratio between the vertical advection of energy in the column and the import of moisture into the column:
 
-.. math:: \Gamma_\mathrm{v} =  \frac{\nabla.\langle \omega \frac{\mathrm{d}h}{\mathrm{d}p} \rangle}{\nabla.\langle \overrightarrow{V}q \rangle}
+$$\Gamma_\mathrm{v} =  \frac{\nabla.\langle \omega \frac{\mathrm{d}h}{\mathrm{d}p} \rangle}{\nabla.\langle \overrightarrow{V}q \rangle}$$
 
-where :math:`\omega` is upward motion and :math:`\frac{\mathrm{d}h}{\mathrm{d}p}` is the vertical gradient of moist static energy. 
+where $\omega$ is upward motion and $\frac{\mathrm{d}h}{\mathrm{d}p}$ is the vertical gradient of moist static energy. 
 
 This framework will guide the analyses of km-scale climate simulations by taking into account the following questions:
 * 1) How different is the representation of the tropical rainbelt and warm pool precipitation in the Western Pacific?
-* 2) Are the differences in the Western Pacific related to :math:`Q_\mathrm{rad}`, :math:`Q_\mathrm{sfc}`, or :math:`\Gamma`?
-* 3) If differences in :math:`Q_\mathrm{rad}` are big, are they related to ice concentration? 
-* 4) Are the differences in :math:`Q_\mathrm{sfc}` related to surface winds? and how is this related to the energetics in the boundary layer?
-* 5) Can we relate the differences in :math:`\Gamma` to the effiency of the model to export vertically energy and import moisture into the column :math:`\Gamma_\mathrm{v}`?
+* 2) Are the differences in the Western Pacific related to $Q_\mathrm{rad}$, $Q_\mathrm{sfc}$, or $\Gamma$?
+* 3) If differences in $Q_\mathrm{rad}$ are big, are they related to ice concentration? 
+* 4) Are the differences in $Q_\mathrm{sfc}$ related to surface winds? and how is this related to the energetics in the boundary layer?
+* 5) Can we relate the differences in $\Gamma$ to the effiency of the model to export vertically energy and import moisture into the column $\Gamma_\mathrm{v}$?
 * 6) How is representation of convectively coupled equatorial waves?
 
 Please note that these questions could be changed throughout the hackathon. 
@@ -46,7 +46,7 @@ Moreover, we recommend people assisting the same node to find a common place to 
 
 ## Recomendations
 Please take into account these steps: 
-* Follow  `the how to hack <https://digital-earths-global-hackathon.github.io/hamburg-node/howtotech/>`_ and the `how2hack <https://github.com/digital-earths-global-hackathon/hk25/blob/main/content/how2hack.md>`_
+* Follow  [the how to hack](https://digital-earths-global-hackathon.github.io/hamburg-node/howtotech/) and the [how2hack](https://github.com/digital-earths-global-hackathon/hk25/blob/main/content/how2hack.md)
 * The hk25-RainBelt will coordinate the activities using github issues. An issue could be: "Representation of Tropical Rainbelt". So, this is issue will be only dedicated to the analysis of the representation of the tropical rainbelt. This means that figures and discussions about the tropical rainbelt will be posted in this issue.
 * It is highly recommended that after finishing the analysis, the final scripts and the description of the analysis should be merged into the repository. To do this, follow the following steps:
 1) Clone the repository (git clone ...)
