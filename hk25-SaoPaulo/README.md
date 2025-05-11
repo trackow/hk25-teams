@@ -5,23 +5,40 @@ The São Paulo node has proposed ten key research topics, focusing on significan
 ### Topics: 
 - [Simulation Verification](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_verification_stats.md)
   
-- **Model Performance in Complex Regions**: Assess simulation results in areas where models typically struggle. Example regions: Andes, Eastern Amazon.
+- [Model Performance in Complex Regions](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_complex_region.md)
 
-- **Seasonality Analysis**: Define boxes in selected regions to assess the seasonality of key variables. Since the focus is on high resolution, consider regionalizing areas such as metropolitan regions.
+- [Seasonality Analysis](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_seasonality.md)
 
-- **Diurnal Cycle**: Use regional or sub-regional boxes (e.g., from IPCC regions) to analyze the diurnal cycle of variables.
+- [Diurnal Cycle](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_diurnal_cycle.md)
 
-- **EOF (Empirical Orthogonal Functions) for climate modes**: Not applicable, as only one year of data is available.
+- [Monsoon Analysis](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_monsoon.md)
 
-- **Monsoon Analysis**: Plot precipitation vs. month in the monsoon region to evaluate seasonal patterns.
+- [SACZ (South Atlantic Convergence Zone)](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_sacz.md)
 
-- **SACZ (South Atlantic Convergence Zone)**: Create seasonal climatology to assess average position and intensity. Not enough data for climatology.
+- [Low level jet east of Andes](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_llj.md)
 
-- **Simulation Comparisons**: Compare different simulations, models, and physical parameterizations.
+- [Extremes Analysis](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_extremes.md)
 
-- **Case Studies**: Analyze specific events such as cyclones, MCSs, etc. See GrEC`s table.
+- [Simulation Intercomparisons](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_intercomparisons.md)
 
-- **Extremes Analysis**: Investigate precipitation and temperature extremes.
+- [Case Studies](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_case_studies.md)
+
+- [EOF for climate modes](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_eof.md)
+
+
+### Acessing data in São Paulo Node:
+Across the nodes there are several simulations available according to the catalog (https://digital-earths-global-hackathon.github.io/catalog/catalog.yaml). 
+
+São Paulo node is storing the '```glm.n2560_RAL3p3```' simulation from the UK MetOffice at IAG/USP server (Instituto de Astronomia, Geofísica e Ciências Atmosféricas da USP). This covers the DYAMOND-3 period (Jan 2020-Feb 2021). 
+
+```glm.n2560_RAL3p3``` uses the N2560 global grid (~5 km in mid-latitudes) explicit convection globally (no active convection parameterisation) and regional atmosphere-land configuration (RAL3p3; Bush et al., 2023; 2025). 
+
+
+In this server you will also find observational datasets as described in [tp_datasets.md](https://github.com/salvatirehbein/hk25-teams/blob/main/hk25-SaoPaulo/tp_datasets.md). Please search for the README file in each folder to find a description of the datasets. 
+
+**References:** 
+Bush, M., Boutle, I., Edwards, J., Finnenkoetter, A., Franklin, C., Hanley, K., ... & Weeks, M. (2023). The second Met Office Unified Model–JULES regional atmosphere and land configuration, RAL2. Geoscientific Model Development, 16(6), 1713-1734.
+
 
 ### Coordination: 
 Professor Rosmeri Porfirio da Rocha (rosmerir.rocha@iag.usp.br)
