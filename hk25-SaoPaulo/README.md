@@ -42,5 +42,3 @@ Bush, M., Boutle, I., Edwards, J., Finnenkoetter, A., Franklin, C., Hanley, K., 
 
 ### Coordination: 
 Professor Rosmeri Porfirio da Rocha (rosmerir.rocha@iag.usp.br)
-
-
