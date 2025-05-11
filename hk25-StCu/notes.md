@@ -193,7 +193,7 @@ Hypotheses
 
 
 
-#### Relevant simulations
+### Relevant simulations
 
 | Simulation | Protocol | Mod res (km) | Av type | Time res | Zoom | Out res (km) | 3D variables | 2D variables |
 | --- | --- | ---: | ---: | ---: | ---: | ---: | --- | --- |
