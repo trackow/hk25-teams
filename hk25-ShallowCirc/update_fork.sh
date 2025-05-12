@@ -9,7 +9,7 @@ git checkout main
 git fetch upstream
 
 # Merge upstream/main into your main branch
-git merge upstream/main
+git rebase upstream/main
 
 # Push updated main branch to your fork (origin)
 git push origin main
