@@ -66,7 +66,8 @@ Tropical cyclone occurrence probability derived from ERA5 (1980–2017) and cBot
 
 <img src="https://github.com/user-attachments/assets/86b5fb4f-5991-453c-aa38-82638b27289f" width="600px">
 
-Some (known) limitations of cBottle:
+
+## Known Limitations
 
 - Non-stationary trends such as how heat waves vary under climate change are not optimally represented in the current version of cBottle, and the model varies too much from the diurnal cycle. We expect these can be addressed by training on more data and further tuning of the noise schedule.
 
