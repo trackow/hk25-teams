@@ -16,6 +16,21 @@ The following steps can be followed by users who have been granted upgraded acce
 
 To explore the ClimateDT data via the DESP one can use the Insula - Code service to run Jupyter Notebooks interactively. First go to [Insula Code](https://platform.destine.eu/services/service/insula-code/), sign in (upper left corner), then click "Go to service". Then a server will be started that will launch a Jupyter lab. There are multiple folders to begin with. Select polytope-lab -> climate-dt. There are multiple example jupyter notebooks in this folder which can be used as basis for any analysis.
 
+As an example, you can select the DestinE storylines notebook, e.g. `climate-dt-earthkit-fe-story-nudging.ipynb`. Most notebooks listed in polytope-lab -> climate-dt will require you to update the default Python environment on Insula by executing early in one of the first cells:
+
+```bash
+pip install --upgrade --user earthkit
+pip install --user kaleido
+```
+
+Example output should be:
+
+
+<img width="475" alt="image" src="https://github.com/user-attachments/assets/53576b86-6907-43bd-9c6f-0b26027e2387" />
+
+Success!
+
+
 ### Option 2: local data analysis
 
 To explore the Climate DT data locally (e.g. on a HPC/laptop), a python environment can be created using the requirements.txt provided in this folder. You can run any of the [example notebooks](https://github.com/destination-earth-digital-twins/polytope-examples/tree/main/climate-dt), which will require you to authenticate with your personal DESP username and password.
