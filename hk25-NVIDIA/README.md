@@ -44,7 +44,7 @@ The main implications for the climate community are:
 
 This schematic summarizes the overall framework:
 
-![image](https://github.com/user-attachments/assets/9006f23b-8092-4927-b6b0-e93a9f495539)
+<img src="https://github.com/user-attachments/assets/9006f23b-8092-4927-b6b0-e93a9f495539" width="50%" />
 
 High-quality end-to-end generation of 5km global fields (12.5 M pixels)
 
