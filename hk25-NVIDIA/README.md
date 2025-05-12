@@ -60,5 +60,7 @@ Some (known) limitations of cBottle:
 •	Non-stationary trends such as how heat waves vary under climate change are not optimally represented in the current version of cBottle, and the model varies too much from the diurnal cycle. We expect these can be addressed by training on more data and further tuning of the noise schedule.
 •	Lack of temporal coherence. The framework cannot diagnose the duration of events or commonly used metrics like the return time of an event. We are working on extending a next generation version of the macroscale generator that uses video diffusion to the full suite of diagnostics.
 
-#### cBottle Project GitHub
-https://github.com/NVlabs/cBottle
+#### Githubs
+
+- https://github.com/NVlabs/cBottle - diffusion model code for this project
+- https://github.com/Nvlabs/earth2grid - HEALPix GPU utilities
