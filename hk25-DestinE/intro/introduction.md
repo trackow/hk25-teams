@@ -32,6 +32,7 @@ Success!
 
 
 ### Option 2: local data analysis
+#### 2.1 Using pip
 
 To explore the Climate DT data locally (e.g. on a HPC/laptop), a python environment can be created using the requirements.txt provided in this folder. You can run any of the [example notebooks](https://github.com/destination-earth-digital-twins/polytope-examples/tree/main/climate-dt), which will require you to authenticate with your personal DESP username and password.
 
@@ -61,7 +62,17 @@ You should now be able to select this kernel and access DT data.
 
 If you have previously created a python venv you may need to update the versions of some packages. You can do this manually or by reinstalling from the requirements.txt
 
+#### 2.2 Using conda
+When using conda the approach is very similar to what is described in the [how to tech](https://github.com/digital-earths-global-hackathon/hamburg-node/blob/main/content/howtotech.md). Here we use a different environment.yml file which you can find in the [polytopes-examples repo](https://github.com/destination-earth-digital-twins/polytope-examples/blob/main/environment.yml). The rest is the same so please check those guidelines for more detailed advise.
 
+These are the main steps: 
+1. Create a directory, e.g. `destine_env` in the `work` of the project.
+2. Change into the `destine_env` directory and copy/move the [environment.yml](https://github.com/destination-earth-digital-twins/polytope-examples/blob/main/environment.yml) there.
+3. Create the environment (this may take a while) by running `conda env create -f environment.yaml -p <path-to-your-environment-folder>`
+4. Activate the environment `conda activate <path-to-your-environment-folder`
+5. Create a jupyter kernel if you want to use jupyter notebooks by running `python3 -m ipykernel install --name global-hackathon-destine --user`
+
+   
 ### Notes on how to select data from available simulations:
 
 An overview of the available Climate DT simulations is provided [here](https://destine.ecmwf.int/climate-change-adaptation-digital-twin-climate-dt/#simulations).
