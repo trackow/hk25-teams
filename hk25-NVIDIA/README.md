@@ -12,6 +12,16 @@ In this cross-cutting activity we will evaluate the capabilities and limitations
 - [mattermost](https://mattermost.mpimet.mpg.de/wcrp-lighthouse/channels/hk25-nvidia) (preferred)
 - Email: Karthik Kashinath (kkashinath@nvidia.com), Noah Brenowitz (nbrenowitz@nvidia.com)
 
+## The Code
+
+- https://github.com/NVlabs/cBottle - diffusion model code for this project
+- https://github.com/Nvlabs/earth2grid - HEALPix GPU utilities
+
+## Tutorials
+
+- part 1: Noah, earth2grid+healpix: https://nvlabs.github.io/earth2grid/tutorials/healpix.html  (20 minutes)
+- part 2: Tao, inference + dataloaders + cbottle training: https://nvlabs.github.io/cBottle/tutorials/  (40 minutes)
+
 ## Sketch of initial activities:
 
 * 45-minute technical talk on generative diffusion model-based emulation of km-scale climate data (day 2, 9am PT)
@@ -65,21 +75,31 @@ The main implications for the climate community are:
 
 This schematic summarizes the overall framework:
 
-![image](https://github.com/user-attachments/assets/9006f23b-8092-4927-b6b0-e93a9f495539)
+<img src="https://github.com/user-attachments/assets/9006f23b-8092-4927-b6b0-e93a9f495539" width="50%" />
 
 High-quality end-to-end generation of 5km global fields (12.5 M pixels)
 
-![image](https://github.com/user-attachments/assets/6755c4ad-0c1c-4499-a845-60507e2cca8b)
+| Generated Output | Ground Truth |
+|------------------|--------------|
+| **Mean sea-level pressure** | |
+| <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/cascade/pres_msl.jpg" width="400px"> | <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/ground_truth/pres_msl.jpg" width="400px"> |
+| **Surface air temperature** | |
+| <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/cascade/tas.jpg" width="400px"> | <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/ground_truth/tas.jpg" width="400px"> |
+| **Infrared** | |
+| <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/cascade/rlut.jpg" width="400px"> | <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/ground_truth/rlut.jpg" width="400px"> |
+| **Visible light** | |
+| <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/cascade/rsut.jpg" width="400px"> | <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/ground_truth/rsut.jpg" width="400px"> |
+| **Surface precipitation** | |
+| <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/cascade/pr.jpg" width="400px"> | <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/ground_truth/pr.jpg" width="400px"> |
+
 
 Tropical cyclone occurrence probability derived from ERA5 (1980–2017) and cBottle (1940–2021)
 
-![image](https://github.com/user-attachments/assets/86b5fb4f-5991-453c-aa38-82638b27289f)
+<img src="https://github.com/user-attachments/assets/86b5fb4f-5991-453c-aa38-82638b27289f" width="600px">
 
 
-Some (known) limitations of cBottle:
+## Known Limitations
 
-•	Non-stationary trends such as how heat waves vary under climate change are not optimally represented in the current version of cBottle, and the model varies too much from the diurnal cycle. We expect these can be addressed by training on more data and further tuning of the noise schedule.
-•	Lack of temporal coherence. The framework cannot diagnose the duration of events or commonly used metrics like the return time of an event. We are working on extending a next generation version of the macroscale generator that uses video diffusion to the full suite of diagnostics.
+- Non-stationary trends such as how heat waves vary under climate change are not optimally represented in the current version of cBottle, and the model varies too much from the diurnal cycle. We expect these can be addressed by training on more data and further tuning of the noise schedule.
+- Lack of temporal coherence. The framework cannot diagnose the duration of events or commonly used metrics like the return time of an event. We are working on extending a next generation version of the macroscale generator that uses video diffusion to the full suite of diagnostics.
 
-## cBottle Project GitHub
-https://github.com/NVlabs/cBottle
