@@ -48,6 +48,19 @@ This schematic summarizes the overall framework:
 
 High-quality end-to-end generation of 5km global fields (12.5 M pixels)
 
+| Generated Output | Ground Truth |
+|------------------|--------------|
+| **Mean sea-level pressure** | |
+| <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/cascade/pres_msl.jpg" width="400px"> | <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/ground_truth/pres_msl.jpg" width="400px"> |
+| **Surface air temperature** | |
+| <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/cascade/tas.jpg" width="400px"> | <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/ground_truth/tas.jpg" width="400px"> |
+| **Infrared** | |
+| <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/cascade/rlut.jpg" width="400px"> | <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/ground_truth/rlut.jpg" width="400px"> |
+| **Visible light** | |
+| <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/cascade/rsut.jpg" width="400px"> | <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/ground_truth/rsut.jpg" width="400px"> |
+| **Surface precipitation** | |
+| <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/cascade/pr.jpg" width="400px"> | <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/ground_truth/pr.jpg" width="400px"> |
+
 ![image](https://github.com/user-attachments/assets/6755c4ad-0c1c-4499-a845-60507e2cca8b)
 
 Tropical cyclone occurrence probability derived from ERA5 (1980–2017) and cBottle (1940–2021)
@@ -57,8 +70,9 @@ Tropical cyclone occurrence probability derived from ERA5 (1980–2017) and cBot
 
 Some (known) limitations of cBottle:
 
-•	Non-stationary trends such as how heat waves vary under climate change are not optimally represented in the current version of cBottle, and the model varies too much from the diurnal cycle. We expect these can be addressed by training on more data and further tuning of the noise schedule.
-•	Lack of temporal coherence. The framework cannot diagnose the duration of events or commonly used metrics like the return time of an event. We are working on extending a next generation version of the macroscale generator that uses video diffusion to the full suite of diagnostics.
+- Non-stationary trends such as how heat waves vary under climate change are not optimally represented in the current version of cBottle, and the model varies too much from the diurnal cycle. We expect these can be addressed by training on more data and further tuning of the noise schedule.
+
+- Lack of temporal coherence. The framework cannot diagnose the duration of events or commonly used metrics like the return time of an event. We are working on extending a next generation version of the macroscale generator that uses video diffusion to the full suite of diagnostics.
 
 #### Githubs
 
