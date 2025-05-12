@@ -12,7 +12,7 @@ import cartopy.crs as ccrs
 import cartopy.feature as cfeature
 from matplotlib import colors
 import sys
-sys.path.append(str(pathlib.Path.cwd() / "src"))
+sys.path.append(str(pathlib.Path.cwd() / "../../src"))
 import toolbox
 
 #%%
