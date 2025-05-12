@@ -18,7 +18,7 @@ conda activate hackathon
 ## Run the notebook again
 
 # Script Parameters
-run='um_glm_n1280_GAL9' # Code of your simulation (must be the reference in the catalog)
+run='um_glm_n1280_CoMA9_TBv1p2' # Code of your simulation (must be the reference in the catalog)
 scr_dir='/work/scratch-nopw2/sbourdin/' # Change to your own scratch/temporary folder
 
 # 0. Prepare working directories
