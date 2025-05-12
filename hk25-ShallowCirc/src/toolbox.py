@@ -83,3 +83,62 @@ def interpolate_field_lon_lat(field, lon_coord="lon", lat_coord="lat", relative_
         dims=["lat", "lon"],
         coords={"lon": lon, "lat": lat},
     )
+
+def nest2ring_index(ds, nside):
+    """
+        ds (xarray:Dataset): dataset with cell as dimensions
+        nside (int): nside of the zoom level 
+    """
+    return np.array([hp.ring2nest(nside, i) for i in ds.cell.values])
+
+def compute_hder(var, nside):
+        """
+        computes the horizontal derivatives of any variable (1 vertical level, 1 time) using spherical harmonics
+        
+        Parameters:
+            var (xarray.DataArray): Name of the variable on which derivatives will be computed
+            nside (int): nside of the zoom level 
+
+        Returns:
+            numpy array: derivative with respect to co-latitude
+            numpy array: derivative with respect to longitude
+        
+        """
+        var_alm = hp.sphtfunc.map2alm(var)
+        der_arr = hp.sphtfunc.alm2map_der1(var_alm, nside)
+        return der_arr[1, :], der_arr[2, :] # dvar_dtheta (lat), dvar_dphi (lon)
+
+
+def compute_conv(ua, va, ring_index, nside):
+        """
+        computes the horizontal wind convergence using spherical harmonics
+        
+        Parameters:
+            ua (xarray.DataArray): zonal wind
+            va (xarray.DataArray): meridional wind
+            ring_index (numpy array): indices to convert from nest to ring
+            nside (int): nside of the zoom level 
+
+        Returns:
+            convergence (xarray.DataArray)
+        
+        """
+        ua = ua.isel(cell = ring_index)
+        va = va.isel(cell = ring_index)
+        lat = ua.lat
+    
+        def _compute_conv(ua, va, lat, nside):
+            _, dua_dphi = compute_hder(ua, nside)
+            dva_dtheta, _  = compute_hder(va, nside)
+            va_tanlat = va * np.tan(np.deg2rad(lat))
+            return -(dua_dphi - dva_dtheta - va_tanlat) / 6371/1000 #+ 2*7.2921e-5 *np.sin(np.deg2rad(lat))
+    
+        conv_time = xr.apply_ufunc(_compute_conv,
+                            ua, va, lat, nside,
+                            input_core_dims=[['cell'],['cell'],['cell'],[]],
+                            dask = "parallelized",
+                            vectorize = True,
+                            output_core_dims= [['cell']],
+                            dask_gufunc_kwargs = {"output_sizes": {"cell": len(ua.cell)}},
+                            output_dtypes = ["f8"],)
+        return conv_time
