@@ -8,7 +8,7 @@ In this cross-cutting activity we will evaluate the capabilities and limitations
 
 **Coordination**: Karthik Kashinath (kkashinath@nvidia.com), Noah Brenowitz (nbrenowitz@nvidia.com)
 
-#### Sketch of initial activities:
+## Sketch of initial activities:
 
 * 45-minute technical talk on generative diffusion model-based emulation of km-scale climate data (day 1)
 * 60-minute hands-on tutorial session on training and inferencing diffusion models (day 1)
@@ -22,13 +22,13 @@ Some potential science questions to explore with the AI-generated km-scale field
 - Does the diurnal cycle look right over the amazon?
 
 
-#### Potential ideas for hacking
+## Potential ideas for hacking
 
 - Inferences for other science questions (e.g., hk25-ConvOrg, hk25-MCS, hk25-ShallowCirc, hk25-StCu)
 - Train on other GSRMs/unified training on multiple datasets
 - Reducing global super-res inference latency on a single GPU from minutes to seconds
 
-#### Project Description
+## Project Description
 
 Climate in a Bottle: A generative foundation model for the kilometer-scale atmosphere
 
@@ -72,7 +72,7 @@ Some (known) limitations of cBottle:
 
 - Lack of temporal coherence. The framework cannot diagnose the duration of events or commonly used metrics like the return time of an event. We are working on extending a next generation version of the macroscale generator that uses video diffusion to the full suite of diagnostics.
 
-#### Githubs
+## The Code
 
 - https://github.com/NVlabs/cBottle - diffusion model code for this project
 - https://github.com/Nvlabs/earth2grid - HEALPix GPU utilities
