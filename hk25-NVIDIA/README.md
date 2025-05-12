@@ -61,12 +61,10 @@ High-quality end-to-end generation of 5km global fields (12.5 M pixels)
 | **Surface precipitation** | |
 | <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/cascade/pr.jpg" width="400px"> | <img src="https://raw.githubusercontent.com/wiki/NVlabs/cBottle/assets/hk25/images/ground_truth/pr.jpg" width="400px"> |
 
-![image](https://github.com/user-attachments/assets/6755c4ad-0c1c-4499-a845-60507e2cca8b)
 
 Tropical cyclone occurrence probability derived from ERA5 (1980–2017) and cBottle (1940–2021)
 
-![image](https://github.com/user-attachments/assets/86b5fb4f-5991-453c-aa38-82638b27289f)
-
+<img src="https://github.com/user-attachments/assets/86b5fb4f-5991-453c-aa38-82638b27289f" width="600px">
 
 Some (known) limitations of cBottle:
 
