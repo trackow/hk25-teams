@@ -365,9 +365,15 @@ def _get_var_in_trigger_area_multiple(
             ['start_basetime'].values
         pre_mcs_start_basetime = mcs_start_basetime - times_before_trigger
         if pre_mcs_start_basetime < analysis_time[0]: continue
-        var_before_trigger = data_field.sel(
-            time=slice(pre_mcs_start_basetime, mcs_start_basetime),
-        )
+
+        analysis_period_end_time = data_field['time'].sel(
+            time=mcs_start_basetime, method='pad'
+            )
+        analysis_period_start_time = analysis_period_end_time - times_before_trigger
+        var_before_trigger = data_field.where(
+            (data_field['time'] > analysis_period_start_time) &
+            (data_field['time'] <= analysis_period_end_time), drop=True
+            )
 
         for i, radius in enumerate(mcs_trigger_locs['radius']):
             trigger_area_idxs = _select_trigger_area_idxs(
