@@ -4,6 +4,17 @@ import healpy as hp
 import easygems.healpix as egh
 from typing import Tuple, Optional
 
+MCS_TRACK_FILES = {
+    "icon_ngc4008": \
+        "./../data/icon_ngc4008/mcs_tracks_final_20200101.0000_20201231.2330.nc",
+    "icon_d3hp003": \
+        "./../data/icon_d3hp003/mcs_tracks_final_20200102.0000_20201231.2330.nc",
+    "scream-dkrz": \
+        "./../data/scream-dkrz/mcs_tracks_final_20190901.0000_20200901.0000.nc",
+    "um_glm_n2560_RAL3p3": \
+        "./../data/um_glm_n2560_RAL3p3/mcs_tracks_final_20200201.0000_20210301.0000.nc",
+    }
+
 # ------------------------------------------------------------------------------
 # Functions to determine triggering area of MCSs
 # ------------------------------------------------------------------------------
