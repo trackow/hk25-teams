@@ -56,6 +56,14 @@ def main():
     
         dim="pressure"
         ds3d = ds3d.assign_coords(pressure=ds3d[dim]/100)
+    if "ifs_" in sim_name:
+        ds2d = cat[sim_name](zoom=zoom_level, dim="2D").to_dask()
+        
+        vnames = {"sst":"sst", "psl":"msl", "t":"t", "q":"q"}
+    
+        ds3d = cat[sim_name](zoom=zoom_level, dim="3D").to_dask()
+    
+        dim="level"
     
     
     ds3d = ds3d.sortby(dim, ascending=False)
@@ -67,16 +75,16 @@ def main():
     q = ds3d[vnames["q"]]
 
     #adjust spatial resolution for regular grid conversion
-    if ("icon_" in sim_name) or ("um_" in sim_name):
-        ddeg = 0.2
-        nside = nside = ds3d.crs.healpix_nside
-        lon = np.arange(0, 360, ddeg)
-        #lat = np.arange(90, -90+ddeg, -ddeg)
-        lat = np.arange(60, -60+ddeg, -ddeg)
-    else:
-        lat = np.sort(ds3d.lat)
-        lat = lat[(lat<=60) & (lat>=60)]
-        lon = np.sort(ds3d.lon)
+#    if ("icon_" in sim_name) or ("um_" in sim_name):
+    ddeg = 0.2
+    nside = nside = ds3d.crs.healpix_nside
+    lon = np.arange(0, 360, ddeg)
+    #lat = np.arange(90, -90+ddeg, -ddeg)
+    lat = np.arange(60, -60+ddeg, -ddeg)
+#    else:
+#        lat = np.sort(ds3d.lat)
+#        lat = lat[(lat<=60) & (lat>=60)]
+#        lon = np.sort(ds3d.lon)
     
     pix = xr.DataArray(
         hp.ang2pix(nside, *np.meshgrid(lon, lat), nest=True, lonlat=True),
@@ -106,6 +114,12 @@ def main():
     
     def process_chunk(ts, psl, p, t, q):
         return get_pi(ts, psl, p, t, q)
+
+    if "ifs_" in sim_name:
+        ts = ts.drop_vars(["lat", "lon"])
+        psl = psl.drop_vars(["lat", "lon"])
+        t = t.drop_vars(["lat", "lon"])
+        q = q.drop_vars(["lat", "lon"])
     
     chunk_size = 25  # Adjust based on available memory or number of workers
     lat_chunks = [slice(i, i + chunk_size) for i in range(0, len(lat), chunk_size)]
