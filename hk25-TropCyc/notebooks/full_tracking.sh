@@ -18,15 +18,15 @@ conda activate hackathon
 ## Run the notebook again
 
 # Script Parameters
-run='um_glm_n1280_CoMA9_TBv1p2' # Code of your simulation (must be the reference in the catalog)
+run='nicam_gl11' # Code of your simulation (must be the reference in the catalog)
 scr_dir='/work/scratch-nopw2/sbourdin/' # Change to your own scratch/temporary folder
 
 # 0. Prepare working directories
 if ! [ -d ${scr_dir}/$run ]; then mkdir ${scr_dir}/$run; fi # Create run scr dir if does not exist
 data_pp_dir=$scr_dir/$run/data_pp # dir to store preprocessed (pp) files
-if ! [ -d ${data_pp_dir} ]; then mkdir ${$data_pp_dir}; fi # Create pp dir if does not exist
+if ! [ -d ${data_pp_dir} ]; then mkdir ${data_pp_dir}; fi # Create pp dir if does not exist
 nodes_dir=$scr_dir/$run/nodes # dir to store nodes files
-if ! [ -d ${nodes_dir} ]; then mkdir ${$nodes_dir}; fi # Create nodes dir if does not exist
+if ! [ -d ${nodes_dir} ]; then mkdir ${nodes_dir}; fi # Create nodes dir if does not exist
 tracks_dir=../TC_tracks/
 timelist_file=$scr_dir/$run/timelist.txt
 
