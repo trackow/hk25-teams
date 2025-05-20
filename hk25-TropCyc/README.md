@@ -50,3 +50,7 @@ As for the tracking, two steps are required:
 2. Run NodeFileCompose as in the `NodeFileCompose` script (available as notebook for one variable at a time, or as a bash script for several variables)
 
 NB: It is recommended to adjust the snapshots' output grid to match the zoom level.
+
+Snapshots files are too heavy to be shared via GitHub. 
+They will be available on JASMIN at `/home/users/sbourdin/WCRP_Hackathon/hk25-teams/hk25-TropCyc/snapshot` and
+I will try to share them through [this Google Drive folder](https://drive.google.com/drive/folders/1fNDDQA_G-yy05SP8J8pV2EIFJCs1bOtb?usp=sharing)
