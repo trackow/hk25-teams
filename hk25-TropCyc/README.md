@@ -11,6 +11,9 @@ In this folder we leave for legacy scripts to track TCs in the simulations, as w
 ## Useful resources
 
 * [TempestExtremes](https://github.com/ClimateGlobalChange/tempestextremes)
+
+  Some introductory content is provided in `notebooks/TE_intro.ipynb` & `notebooks/TE_tracking_UZ.ipynb`.
+
 * [HuracanPy](https://huracanpy.readthedocs.io/en/latest/)
 
 ## Connectivity Files for TempestExtremes
