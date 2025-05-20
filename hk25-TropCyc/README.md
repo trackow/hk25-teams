@@ -20,20 +20,23 @@ Files can be generated using instructions in `notebooks/1_Get_Connectivity_Files
 
 ## TC tracking
 
+In the scope of this hackathon, TC tracking has been performed with two algorithms, in any case using the TempestExtremes software:
 
+* UZ (Zarzycki et Ullrich, 2017; Ullrich et al., 2021) when geopotential on pressure levels was available;
+* UZ-2D (Unpublished, see notebook for script, contact S. Bourdin for info) when it was not.
 
-3. Get familiar with the tracking process: Check-out the pre-processing, TE_intro and TE_full notebooks to understand how it works.
+For each algorithm, the process is in two steps:
 
-4. Run the tracking with the full_tracking notebook (or turn it into a script if necessary).
+1. Download the necessary data on HealPix zoom 8 (~25km is supposedly a good compromise) with the script in `notebooks/2_TC_tracking/UZ_tracking_pre-processing.ipynb` or `2D_tracking_pre-processing.ipynb` (depending on which algorithm you want to run). Data will be chuncked into monthly files which is a good compromise for efficiency/memory use.
 
-5. Check the tracks you obtained (An image will be generated at the end of the full_tracking script to get a first glance.
+2. Run the tracking with the script in `notebooks/2_TC_tracking/UZ_tracking_TempestExtremes.ipynb` or `2D_tracking_TempestExtremes.ipynb`.
 
-6. Upload the tracks to hk25-TropCyc/TC_tracks/ with one csv file per simulation, named with the simulation code. Update the Monitoring TC tracks once this is done
+At the end of the process, you will obtain the tracks as a CSV file, whose name is the name of the simulation.
+
 
 *Technical details*:
 TCs are to be tracked in all relevant simulations (i.e. simulations covering TC-prone areas) using TempestExtremes and the algorithm described in Ullrich et al. 2021.
 Output should include, a minima, track_id, time, lon, lat, maximum wind speed in a 2°GCD radius and minimum SLP.
 
-Note: If some simulations don't have the necessary data for the tracking, an alternative 2D algorithm can be applied - please reach out if that's the case.
+## TC-centered snapshot retrieval
 
-![image](tracking_process.png)
