@@ -40,3 +40,10 @@ Output should include, a minima, track_id, time, lon, lat, maximum wind speed in
 
 ## TC-centered snapshot retrieval
 
+Instructions are provided to retrieve TC-centered snapshots in `notebooks/3_snapshot_retrieval/`.
+As for the tracking, two steps are required:
+
+1. Download the necessary data (at highest zoom level available this time) with the `Pre-processing` script (available as notebook for one variable at a time, or as a bash script for several variables)
+2. Run NodeFileCompose as in the `NodeFileCompose` script (available as notebook for one variable at a time, or as a bash script for several variables)
+
+NB: It is recommended to adjust the snapshots' output grid to match the zoom level.
