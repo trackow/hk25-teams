@@ -109,4 +109,4 @@ def LvL(cloud_mask):
     adf2 = np.abs(np.cumsum(ct2 / st2) - np.cumsum(c2 / s2))
     KS2 = np.max(adf2)
 
-    return KS1, KS2
+    return KS1, KS2, c1, ct1, c2, ct2
